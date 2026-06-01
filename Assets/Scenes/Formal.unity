@@ -661,6 +661,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: hint room
       objectReference: {fileID: 0}
+    - target: {fileID: 661956168695864494, guid: 102c4e309d0575044bf06a0ea8b9fb3e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5664016892947415540, guid: 102c4e309d0575044bf06a0ea8b9fb3e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 221.5738
@@ -785,6 +789,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43930243d6fb9744e91afeacd1b980ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ObjectRotator
+  uniqueID: RotatableMirrorWrong
   rotationStep: 15
   interactDistance: 2.5
 --- !u!65 &6524280
@@ -820,6 +825,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4f48e71565a9924a933ee03bbef6a59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MirrorPedestal
+  uniqueID: HasMirrorNo
   hasMirror: 0
   mirrorModel: {fileID: 2029651776}
   ghostMirrorModel: {fileID: 2002049723}
@@ -5360,6 +5366,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43930243d6fb9744e91afeacd1b980ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ObjectRotator
+  uniqueID: RotatableMirror4
   rotationStep: 15
   interactDistance: 2.5
 --- !u!65 &86321803
@@ -5395,6 +5402,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4f48e71565a9924a933ee03bbef6a59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MirrorPedestal
+  uniqueID: HasMirror4
   hasMirror: 0
   mirrorModel: {fileID: 735869130}
   ghostMirrorModel: {fileID: 1419649467}
@@ -5600,6 +5608,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 842eaed146c1f694a84dc062f588b3de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PillPickup
+  uniqueID: Pill
   interactPrompt: {fileID: 1128316572}
 --- !u!65 &92210657
 BoxCollider:
@@ -14921,6 +14930,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43930243d6fb9744e91afeacd1b980ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ObjectRotator
+  uniqueID: RotatableMirror10
   rotationStep: 15
   interactDistance: 2.5
 --- !u!65 &233193040
@@ -14956,6 +14966,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4f48e71565a9924a933ee03bbef6a59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MirrorPedestal
+  uniqueID: HasMirror10
   hasMirror: 0
   mirrorModel: {fileID: 613943055}
   ghostMirrorModel: {fileID: 275444961}
@@ -17952,6 +17963,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43930243d6fb9744e91afeacd1b980ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ObjectRotator
+  uniqueID: RotatableMirror6
   rotationStep: 15
   interactDistance: 2.5
 --- !u!114 &283730686
@@ -17966,6 +17978,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4f48e71565a9924a933ee03bbef6a59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MirrorPedestal
+  uniqueID: HasMirror6
   hasMirror: 0
   mirrorModel: {fileID: 1900315693}
   ghostMirrorModel: {fileID: 1300959173}
@@ -18083,6 +18096,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43930243d6fb9744e91afeacd1b980ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ObjectRotator
+  uniqueID: RotatableMirror3
   rotationStep: 15
   interactDistance: 2.5
 --- !u!114 &288030755
@@ -18097,6 +18111,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4f48e71565a9924a933ee03bbef6a59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MirrorPedestal
+  uniqueID: HasMirror3
   hasMirror: 0
   mirrorModel: {fileID: 1739968151}
   ghostMirrorModel: {fileID: 1020906529}
@@ -18459,6 +18474,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43930243d6fb9744e91afeacd1b980ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ObjectRotator
+  uniqueID: RotatableMirror13
   rotationStep: 15
   interactDistance: 2.5
 --- !u!114 &295692431
@@ -18473,6 +18489,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4f48e71565a9924a933ee03bbef6a59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MirrorPedestal
+  uniqueID: HasMirror13
   hasMirror: 1
   mirrorModel: {fileID: 999830654}
   ghostMirrorModel: {fileID: 1351019593}
@@ -19766,6 +19783,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 842eaed146c1f694a84dc062f588b3de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PillPickup
+  uniqueID: Pill1
   interactPrompt: {fileID: 1128316572}
 --- !u!4 &330524035 stripped
 Transform:
@@ -22936,7 +22954,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 15631375a448a024bb1359a387913723, type: 3}
       propertyPath: m_Name
-      value: "\u7406\u667A\u85AC\u3000\u6750\u8CEA\u3000\u5B9F\u9A13 (6)"
+      value: "\u85E5(\u9020\u666F)"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -23380,6 +23398,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36a33f2813eacbf4a81d754aec05f38a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MirrorPickup
+  uniqueID: Mirror1
   mirrorWeaponID: 2
   interactPrompt: {fileID: 1244259310}
 --- !u!65 &403677892
@@ -24579,6 +24598,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43930243d6fb9744e91afeacd1b980ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ObjectRotator
+  uniqueID: RotatableMirror11
   rotationStep: 15
   interactDistance: 2.5
 --- !u!65 &413285550
@@ -24614,6 +24634,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4f48e71565a9924a933ee03bbef6a59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MirrorPedestal
+  uniqueID: HasMirror11
   hasMirror: 0
   mirrorModel: {fileID: 303286325}
   ghostMirrorModel: {fileID: 1275635330}
@@ -24689,6 +24710,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5058969947795722353, guid: d8a23f3a86009084291a3763d63b902c, type: 3}
+      propertyPath: uniqueID
+      value: Button4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5058969947795722353, guid: d8a23f3a86009084291a3763d63b902c, type: 3}
       propertyPath: failSound
       value: 
       objectReference: {fileID: 8300000, guid: c29cff6ab9d37be4ebda99c5843db624, type: 3}
@@ -24711,6 +24736,10 @@ PrefabInstance:
     - target: {fileID: 5635563958667512178, guid: d8a23f3a86009084291a3763d63b902c, type: 3}
       propertyPath: m_Name
       value: Button4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8419562348287481896, guid: d8a23f3a86009084291a3763d63b902c, type: 3}
+      propertyPath: m_Name
+      value: up4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -27112,6 +27141,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43930243d6fb9744e91afeacd1b980ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ObjectRotator
+  uniqueID: RotatableMirror8
   rotationStep: 15
   interactDistance: 2.5
 --- !u!114 &456609772
@@ -27126,6 +27156,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4f48e71565a9924a933ee03bbef6a59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MirrorPedestal
+  uniqueID: HasMirror8
   hasMirror: 1
   mirrorModel: {fileID: 194404341}
   ghostMirrorModel: {fileID: 1645996110}
@@ -27745,6 +27776,10 @@ PrefabInstance:
       value: -90
       objectReference: {fileID: 0}
     - target: {fileID: 5058969947795722353, guid: d8a23f3a86009084291a3763d63b902c, type: 3}
+      propertyPath: uniqueID
+      value: Button5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5058969947795722353, guid: d8a23f3a86009084291a3763d63b902c, type: 3}
       propertyPath: failSound
       value: 
       objectReference: {fileID: 8300000, guid: c29cff6ab9d37be4ebda99c5843db624, type: 3}
@@ -27767,6 +27802,10 @@ PrefabInstance:
     - target: {fileID: 5635563958667512178, guid: d8a23f3a86009084291a3763d63b902c, type: 3}
       propertyPath: m_Name
       value: Button5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8419562348287481896, guid: d8a23f3a86009084291a3763d63b902c, type: 3}
+      propertyPath: m_Name
+      value: up5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -28302,7 +28341,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 15631375a448a024bb1359a387913723, type: 3}
       propertyPath: m_Name
-      value: "\u7406\u667A\u85AC\u3000\u6750\u8CEA\u3000\u5B9F\u9A13 (1)"
+      value: "\u85E5(\u9020\u666F)"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -30650,7 +30689,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 15631375a448a024bb1359a387913723, type: 3}
       propertyPath: m_Name
-      value: "\u7406\u667A\u85AC\u3000\u6750\u8CEA\u3000\u5B9F\u9A13 (2)"
+      value: "\u85E5(\u9020\u666F)"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -32556,6 +32595,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36a33f2813eacbf4a81d754aec05f38a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MirrorPickup
+  uniqueID: Mirror10
   mirrorWeaponID: 2
   interactPrompt: {fileID: 1244259310}
 --- !u!65 &560374869
@@ -33263,6 +33303,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 842eaed146c1f694a84dc062f588b3de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PillPickup
+  uniqueID: Pill3
   interactPrompt: {fileID: 1128316572}
 --- !u!65 &574030595
 BoxCollider:
@@ -34790,6 +34831,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36a33f2813eacbf4a81d754aec05f38a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MirrorPickup
+  uniqueID: Mirror8
   mirrorWeaponID: 2
   interactPrompt: {fileID: 1244259310}
 --- !u!65 &597104474
@@ -35955,6 +35997,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43930243d6fb9744e91afeacd1b980ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ObjectRotator
+  uniqueID: RotatableMirror9
   rotationStep: 15
   interactDistance: 2.5
 --- !u!65 &617537603
@@ -35990,6 +36033,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4f48e71565a9924a933ee03bbef6a59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MirrorPedestal
+  uniqueID: HasMirror9
   hasMirror: 0
   mirrorModel: {fileID: 1100541164}
   ghostMirrorModel: {fileID: 578956241}
@@ -36767,6 +36811,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43930243d6fb9744e91afeacd1b980ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ObjectRotator
+  uniqueID: RotatableMirror1
   rotationStep: 15
   interactDistance: 4
 --- !u!65 &629557518
@@ -36802,6 +36847,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4f48e71565a9924a933ee03bbef6a59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MirrorPedestal
+  uniqueID: HasMirror1
   hasMirror: 0
   mirrorModel: {fileID: 997858560}
   ghostMirrorModel: {fileID: 1247080791}
@@ -36854,6 +36900,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36a33f2813eacbf4a81d754aec05f38a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MirrorPickup
+  uniqueID: Mirror2
   mirrorWeaponID: 2
   interactPrompt: {fileID: 1244259310}
 --- !u!65 &630645653
@@ -37279,6 +37326,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43930243d6fb9744e91afeacd1b980ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ObjectRotator
+  uniqueID: RotatableMirrorWrong6
   rotationStep: 15
   interactDistance: 2.5
 --- !u!114 &634538759
@@ -37293,6 +37341,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4f48e71565a9924a933ee03bbef6a59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MirrorPedestal
+  uniqueID: HasMirrorNo6
   hasMirror: 0
   mirrorModel: {fileID: 900233212}
   ghostMirrorModel: {fileID: 114207490}
@@ -37505,7 +37554,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: dd9fb28f7566e7640a38fd3b412a69f8, type: 3}
       propertyPath: m_Name
-      value: "\u7406\u667A\u85AC (5)"
+      value: "\u85E5(\u9020\u666F)"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -38403,7 +38452,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 15631375a448a024bb1359a387913723, type: 3}
       propertyPath: m_Name
-      value: "\u7406\u667A\u85AC\u3000\u6750\u8CEA\u3000\u5B9F\u9A13 (5)"
+      value: "\u85E5(\u9020\u666F)"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -39991,6 +40040,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43930243d6fb9744e91afeacd1b980ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ObjectRotator
+  uniqueID: RotatableMirrorWrong7
   rotationStep: 15
   interactDistance: 2.5
 --- !u!65 &680773435
@@ -40026,6 +40076,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4f48e71565a9924a933ee03bbef6a59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MirrorPedestal
+  uniqueID: HasMirrorNo7
   hasMirror: 1
   mirrorModel: {fileID: 390072185}
   ghostMirrorModel: {fileID: 1128618072}
@@ -49607,6 +49658,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36a33f2813eacbf4a81d754aec05f38a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MirrorPickup
+  uniqueID: Mirror11
   mirrorWeaponID: 2
   interactPrompt: {fileID: 1244259310}
 --- !u!65 &834632433
@@ -51751,6 +51803,10 @@ PrefabInstance:
       value: 180
       objectReference: {fileID: 0}
     - target: {fileID: 5058969947795722353, guid: d8a23f3a86009084291a3763d63b902c, type: 3}
+      propertyPath: uniqueID
+      value: Button2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5058969947795722353, guid: d8a23f3a86009084291a3763d63b902c, type: 3}
       propertyPath: failSound
       value: 
       objectReference: {fileID: 8300000, guid: c29cff6ab9d37be4ebda99c5843db624, type: 3}
@@ -51773,6 +51829,10 @@ PrefabInstance:
     - target: {fileID: 5635563958667512178, guid: d8a23f3a86009084291a3763d63b902c, type: 3}
       propertyPath: m_Name
       value: Button2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8419562348287481896, guid: d8a23f3a86009084291a3763d63b902c, type: 3}
+      propertyPath: m_Name
+      value: up2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -53565,6 +53625,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43930243d6fb9744e91afeacd1b980ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ObjectRotator
+  uniqueID: RotatableMirror2
   rotationStep: 15
   interactDistance: 2.5
 --- !u!65 &899274160
@@ -53600,6 +53661,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4f48e71565a9924a933ee03bbef6a59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MirrorPedestal
+  uniqueID: HasMirror2
   hasMirror: 0
   mirrorModel: {fileID: 506911302}
   ghostMirrorModel: {fileID: 1897420234}
@@ -56831,6 +56893,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43930243d6fb9744e91afeacd1b980ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ObjectRotator
+  uniqueID: 
   rotationStep: 15
   interactDistance: 2.5
 --- !u!65 &951887245
@@ -56866,6 +56929,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36a33f2813eacbf4a81d754aec05f38a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MirrorPickup
+  uniqueID: Mirror
   mirrorWeaponID: 2
   interactPrompt: {fileID: 1244259310}
 --- !u!65 &954085911
@@ -59945,6 +60009,61 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1008587132}
   m_Mesh: {fileID: -8678823145569952518, guid: d6e7e6d2196375e41a277094914c044b, type: 3}
+--- !u!1 &1011707303
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1011707305}
+  - component: {fileID: 1011707304}
+  m_Layer: 0
+  m_Name: Game_Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1011707304
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1011707303}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86bbd7da8618bdb4a8efb8e3edd24042, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CheckpointManager
+  hasCheckpoint: 0
+  savedPosition: {x: 0, y: 0, z: 0}
+  savedRotation: {x: 0, y: 0, z: 0, w: 0}
+  savedSanity: 0
+  savedSlots: 00000000000000000000000000000000
+  savedItemCounts: 00000000000000000000000000000000
+  savedCurrentIndex: 0
+  savedDestroyedItems: []
+  savedActivatedLasers: []
+  savedPedestalsWithMirror: []
+  savedPedestalsEmpty: []
+--- !u!4 &1011707305
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1011707303}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
+  m_LocalPosition: {x: 0, y: 3, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1014189455
 GameObject:
   m_ObjectHideFlags: 0
@@ -63154,6 +63273,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 842eaed146c1f694a84dc062f588b3de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PillPickup
+  uniqueID: Pill4
   interactPrompt: {fileID: 1128316572}
 --- !u!1 &1061614683
 GameObject:
@@ -63423,7 +63543,7 @@ Transform:
   m_GameObject: {fileID: 1064440332}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 209.19435, y: -0.49481392, z: -246.57498}
+  m_LocalPosition: {x: 209.19435, y: -0.518, z: -246.57498}
   m_LocalScale: {x: 0.18738028, y: 0.197413, z: 3.1606317}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -64095,7 +64215,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 15631375a448a024bb1359a387913723, type: 3}
       propertyPath: m_Name
-      value: "\u7406\u667A\u85AC\u3000\u6750\u8CEA\u3000\u5B9F\u9A13 (11)"
+      value: "\u85E5(\u9020\u666F)"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -64249,6 +64369,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36a33f2813eacbf4a81d754aec05f38a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MirrorPickup
+  uniqueID: Mirror5
   mirrorWeaponID: 2
   interactPrompt: {fileID: 1244259310}
 --- !u!65 &1073501008
@@ -70917,6 +71038,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43930243d6fb9744e91afeacd1b980ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ObjectRotator
+  uniqueID: RotatableMirrorWrong1
   rotationStep: 15
   interactDistance: 2.5
 --- !u!114 &1181738220
@@ -70931,6 +71053,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4f48e71565a9924a933ee03bbef6a59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MirrorPedestal
+  uniqueID: HasMirrorNo1
   hasMirror: 0
   mirrorModel: {fileID: 1418178937}
   ghostMirrorModel: {fileID: 423932953}
@@ -75506,6 +75629,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36a33f2813eacbf4a81d754aec05f38a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MirrorPickup
+  uniqueID: Mirror9
   mirrorWeaponID: 2
   interactPrompt: {fileID: 1244259310}
 --- !u!65 &1252230899
@@ -79132,6 +79256,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43930243d6fb9744e91afeacd1b980ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ObjectRotator
+  uniqueID: RotatableMirrorWrong5
   rotationStep: 15
   interactDistance: 2.5
 --- !u!114 &1331309476
@@ -79146,6 +79271,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4f48e71565a9924a933ee03bbef6a59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MirrorPedestal
+  uniqueID: HasMirrorNo5
   hasMirror: 0
   mirrorModel: {fileID: 885316736}
   ghostMirrorModel: {fileID: 693991380}
@@ -80196,6 +80322,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43930243d6fb9744e91afeacd1b980ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ObjectRotator
+  uniqueID: RotatableMirror7
   rotationStep: 15
   interactDistance: 2.5
 --- !u!65 &1345200643
@@ -80231,6 +80358,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4f48e71565a9924a933ee03bbef6a59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MirrorPedestal
+  uniqueID: HasMirror7
   hasMirror: 0
   mirrorModel: {fileID: 1635490310}
   ghostMirrorModel: {fileID: 1193914087}
@@ -80685,6 +80813,73 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.75535554, y: 2.893043, z: 0.75535554}
   m_Center: {x: 0.00012201071, y: -0.4353189, z: 0.000000059604645}
+--- !u!1 &1351159149
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1351159150}
+  - component: {fileID: 1351159152}
+  - component: {fileID: 1351159151}
+  m_Layer: 0
+  m_Name: Checkpoint1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1351159150
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1351159149}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071067}
+  m_LocalPosition: {x: -4.014, y: 10.867, z: -4.819}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 543450652929707904}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1351159151
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1351159149}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a3afdb40d4903942ab11744cd1fcebd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CheckpointTrigger
+  triggerOnlyOnce: 1
+--- !u!65 &1351159152
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1351159149}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 3.8261647, z: 1}
+  m_Center: {x: 0, y: 0.005256423, z: 9.368062e-18}
 --- !u!1 &1353517333
 GameObject:
   m_ObjectHideFlags: 0
@@ -81764,6 +81959,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 842eaed146c1f694a84dc062f588b3de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PillPickup
+  uniqueID: Pill2
   interactPrompt: {fileID: 1128316572}
 --- !u!1 &1368222109
 GameObject:
@@ -82026,6 +82222,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36a33f2813eacbf4a81d754aec05f38a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MirrorPickup
+  uniqueID: Mirror7
   mirrorWeaponID: 2
   interactPrompt: {fileID: 1244259310}
 --- !u!65 &1371362578
@@ -87018,7 +87215,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: dd9fb28f7566e7640a38fd3b412a69f8, type: 3}
       propertyPath: m_Name
-      value: "\u7406\u667A\u85AC (3)"
+      value: "\u85E5(\u9020\u666F)"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -96156,7 +96353,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 15631375a448a024bb1359a387913723, type: 3}
       propertyPath: m_Name
-      value: "\u7406\u667A\u85AC\u3000\u6750\u8CEA\u3000\u5B9F\u9A13 (3)"
+      value: "\u85E5(\u9020\u666F)"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -98148,6 +98345,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43930243d6fb9744e91afeacd1b980ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ObjectRotator
+  uniqueID: RotatableMirror
   rotationStep: 15
   interactDistance: 2.5
 --- !u!65 &1650192970
@@ -98204,6 +98402,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4f48e71565a9924a933ee03bbef6a59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MirrorPedestal
+  uniqueID: HasMirror
   hasMirror: 0
   mirrorModel: {fileID: 309123530}
   ghostMirrorModel: {fileID: 2128958130}
@@ -98949,6 +99148,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 842eaed146c1f694a84dc062f588b3de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PillPickup
+  uniqueID: Pill6
   interactPrompt: {fileID: 1128316572}
 --- !u!1 &1661566021
 GameObject:
@@ -99727,6 +99927,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 842eaed146c1f694a84dc062f588b3de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PillPickup
+  uniqueID: Pill7
   interactPrompt: {fileID: 1128316572}
 --- !u!4 &1677114859 stripped
 Transform:
@@ -105866,6 +106067,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 842eaed146c1f694a84dc062f588b3de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PillPickup
+  uniqueID: Pill5
   interactPrompt: {fileID: 1128316572}
 --- !u!1001 &1786249550
 PrefabInstance:
@@ -105999,6 +106201,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36a33f2813eacbf4a81d754aec05f38a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MirrorPickup
+  uniqueID: Mirror3
   mirrorWeaponID: 2
   interactPrompt: {fileID: 1244259310}
 --- !u!65 &1790829149
@@ -106471,6 +106674,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5058969947795722353, guid: d8a23f3a86009084291a3763d63b902c, type: 3}
+      propertyPath: uniqueID
+      value: Button3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5058969947795722353, guid: d8a23f3a86009084291a3763d63b902c, type: 3}
       propertyPath: failSound
       value: 
       objectReference: {fileID: 8300000, guid: c29cff6ab9d37be4ebda99c5843db624, type: 3}
@@ -106493,6 +106700,10 @@ PrefabInstance:
     - target: {fileID: 5635563958667512178, guid: d8a23f3a86009084291a3763d63b902c, type: 3}
       propertyPath: m_Name
       value: Button3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8419562348287481896, guid: d8a23f3a86009084291a3763d63b902c, type: 3}
+      propertyPath: m_Name
+      value: up3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -106581,6 +106792,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43930243d6fb9744e91afeacd1b980ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ObjectRotator
+  uniqueID: RotatableMirrorWrong2
   rotationStep: 15
   interactDistance: 2.5
 --- !u!65 &1798419292
@@ -106616,6 +106828,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4f48e71565a9924a933ee03bbef6a59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MirrorPedestal
+  uniqueID: HasMirrorNo2
   hasMirror: 0
   mirrorModel: {fileID: 1047539702}
   ghostMirrorModel: {fileID: 79813648}
@@ -108645,7 +108858,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: dd9fb28f7566e7640a38fd3b412a69f8, type: 3}
       propertyPath: m_Name
-      value: "\u7406\u667A\u85AC (2)"
+      value: "\u85E5(\u9020\u666F)"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -109400,7 +109613,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 15631375a448a024bb1359a387913723, type: 3}
       propertyPath: m_Name
-      value: "\u7406\u667A\u85AC\u3000\u6750\u8CEA\u3000\u5B9F\u9A13 (4)"
+      value: "\u85E5(\u9020\u666F)"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -109950,6 +110163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43930243d6fb9744e91afeacd1b980ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ObjectRotator
+  uniqueID: RotatableMirrorWrong4
   rotationStep: 15
   interactDistance: 2.5
 --- !u!65 &1848950315
@@ -109985,6 +110199,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4f48e71565a9924a933ee03bbef6a59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MirrorPedestal
+  uniqueID: HasMirrorNo4
   hasMirror: 0
   mirrorModel: {fileID: 166061157}
   ghostMirrorModel: {fileID: 1042914386}
@@ -110310,6 +110525,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43930243d6fb9744e91afeacd1b980ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ObjectRotator
+  uniqueID: RotatableMirrorWrong3
   rotationStep: 15
   interactDistance: 2.5
 --- !u!114 &1852570670
@@ -110324,6 +110540,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4f48e71565a9924a933ee03bbef6a59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MirrorPedestal
+  uniqueID: HasMirrorNo3
   hasMirror: 0
   mirrorModel: {fileID: 778928346}
   ghostMirrorModel: {fileID: 370693764}
@@ -111891,7 +112108,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 15631375a448a024bb1359a387913723, type: 3}
       propertyPath: m_Name
-      value: "\u7406\u667A\u85AC\u3000\u6750\u8CEA\u3000\u5B9F\u9A13"
+      value: "\u85E5(\u9020\u666F)"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -116328,6 +116545,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43930243d6fb9744e91afeacd1b980ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ObjectRotator
+  uniqueID: RotatableMirror12
   rotationStep: 15
   interactDistance: 2.5
 --- !u!114 &1958550739
@@ -116342,6 +116560,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4f48e71565a9924a933ee03bbef6a59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MirrorPedestal
+  uniqueID: HasMirror12
   hasMirror: 0
   mirrorModel: {fileID: 1615978841}
   ghostMirrorModel: {fileID: 1580993193}
@@ -118216,6 +118435,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36a33f2813eacbf4a81d754aec05f38a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MirrorPickup
+  uniqueID: Mirror6
   mirrorWeaponID: 2
   interactPrompt: {fileID: 1244259310}
 --- !u!65 &1993349977
@@ -120236,7 +120456,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: dd9fb28f7566e7640a38fd3b412a69f8, type: 3}
       propertyPath: m_Name
-      value: "\u7406\u667A\u85AC (1)"
+      value: "\u85E5(\u9020\u666F)"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -123031,6 +123251,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43930243d6fb9744e91afeacd1b980ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ObjectRotator
+  uniqueID: RotatableMirror5
   rotationStep: 15
   interactDistance: 2.5
 --- !u!114 &2072307451
@@ -123045,6 +123266,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4f48e71565a9924a933ee03bbef6a59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MirrorPedestal
+  uniqueID: HasMirror5
   hasMirror: 0
   mirrorModel: {fileID: 1165917969}
   ghostMirrorModel: {fileID: 492118293}
@@ -127157,7 +127379,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: dd9fb28f7566e7640a38fd3b412a69f8, type: 3}
       propertyPath: m_Name
-      value: "\u7406\u667A\u85AC"
+      value: "\u85E5(\u9020\u666F)"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -128043,6 +128265,7 @@ Transform:
   - {fileID: 1612494157783485351}
   - {fileID: 8892936410747834099}
   - {fileID: 1114971907429012322}
+  - {fileID: 1351159150}
   - {fileID: 8903600538634200159}
   - {fileID: 5669611625460653669}
   - {fileID: 1843855692}
@@ -128628,6 +128851,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5058969947795722353, guid: d8a23f3a86009084291a3763d63b902c, type: 3}
+      propertyPath: uniqueID
+      value: Button1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5058969947795722353, guid: d8a23f3a86009084291a3763d63b902c, type: 3}
       propertyPath: failSound
       value: 
       objectReference: {fileID: 8300000, guid: c29cff6ab9d37be4ebda99c5843db624, type: 3}
@@ -128650,6 +128877,10 @@ PrefabInstance:
     - target: {fileID: 5635563958667512178, guid: d8a23f3a86009084291a3763d63b902c, type: 3}
       propertyPath: m_Name
       value: Button1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8419562348287481896, guid: d8a23f3a86009084291a3763d63b902c, type: 3}
+      propertyPath: m_Name
+      value: up1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -148666,6 +148897,7 @@ MeshRenderer:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 1011707305}
   - {fileID: 1533767362}
   - {fileID: 528728944}
   - {fileID: 6499795}

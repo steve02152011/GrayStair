@@ -4,8 +4,12 @@ using UnityEngine;
 public class PillPickup : MonoBehaviour
 {
     // ==========================================
-    // 【新增】：UI 綁定欄位
+    // 【新增】：存檔系統設定
     // ==========================================
+    [Header("存檔系統設定")]
+    [Tooltip("請輸入獨一無二的ID，例如 'Pill_Room1_01'")]
+    public string uniqueID;
+
     [Header("UI 綁定")]
     [Tooltip("玩家靠近時顯示的『按 F 撿起藥瓶』提示群組或文字")]
     public GameObject interactPrompt;
@@ -25,6 +29,14 @@ public class PillPickup : MonoBehaviour
     void Start()
     {
         GetComponent<BoxCollider>().isTrigger = true;
+
+        // 【新增】：遊戲一開始，去問總部自己是不是已經被吃過了？
+        if (CheckpointManager.Instance != null && CheckpointManager.Instance.IsItemDestroyed(uniqueID))
+        {
+            // 如果已經在死掉的名單裡，就立刻銷毀自己，不讓玩家看到！
+            Destroy(gameObject);
+            return;
+        }
     }
 
     void OnTriggerEnter(Collider other)
@@ -34,7 +46,7 @@ public class PillPickup : MonoBehaviour
             isPlayerNear = true;
             playerInventory = other.transform.root.GetComponentInChildren<InventoryManager>();
 
-            // 【新增】：玩家靠近，打開提示字
+            // 玩家靠近，打開提示字
             if (interactPrompt != null)
             {
                 interactPrompt.SetActive(true);
@@ -49,7 +61,7 @@ public class PillPickup : MonoBehaviour
             isPlayerNear = false;
             playerInventory = null;
 
-            // 【新增】：玩家離開，關閉提示字
+            // 玩家離開，關閉提示字
             if (interactPrompt != null)
             {
                 interactPrompt.SetActive(false);
@@ -68,10 +80,16 @@ public class PillPickup : MonoBehaviour
                 {
                     Debug.Log("<color=green>[撿拾系統]</color> 獲得理智藥！");
 
-                    // 【關鍵防呆】：東西被撿走並銷毀前，一定要先把提示字關掉！
+                    // 東西被撿走並銷毀前，一定要先把提示字關掉
                     if (interactPrompt != null)
                     {
                         interactPrompt.SetActive(false);
+                    }
+
+                    // 【新增】：成功撿起時，打電話給總部，把自己的名字寫進死亡名單
+                    if (CheckpointManager.Instance != null)
+                    {
+                        CheckpointManager.Instance.RecordItemDestroyed(uniqueID);
                     }
 
                     Destroy(gameObject);

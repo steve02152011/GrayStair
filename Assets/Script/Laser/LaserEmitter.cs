@@ -107,7 +107,7 @@ public class LaserEmitter : MonoBehaviour
                         isHittingSensor = true;
                     }
 
-                    bool continueLaser = receiver.ProcessLaser(
+                    bool continueLaser = receiver.ProcessLaser( 
                         hit.point, hit.normal, currentDir, hit.collider,
                         ref remainingDistance, laserPoints,
                         out currentPos, out currentDir

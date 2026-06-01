@@ -29,24 +29,21 @@ public class VoidDeathTrigger : MonoBehaviour
 
             switch (deathAction)
             {
-                // 【選項 1】：傳送回指定地點 (適合有存檔點，或只是輕微懲罰的設計)
+                // 【選項 1】：讀取最後一個 Checkpoint (替換原本的 TeleportToRespawn)
                 case DeathAction.TeleportToRespawn:
-                    if (respawnPoint != null)
+                    if (CheckpointManager.Instance != null && CheckpointManager.Instance.hasCheckpoint)
                     {
-                        // ??【Unity 超級大坑】：
-                        // 玩家身上有 CharacterController 的時候，直接改 position 會無效！
-                        // 必須先關閉控制器，傳送完再打開！
+                        // 呼叫中心還原狀態！
+                        CheckpointManager.Instance.RestoreState(other.gameObject);
+                    }
+                    else if (respawnPoint != null)
+                    {
+                        // 如果玩家還沒踩過任何存檔點就掉下去了，使用備用的初始復活點
                         CharacterController cc = other.GetComponent<CharacterController>();
                         if (cc != null) cc.enabled = false;
-
                         other.transform.position = respawnPoint.position;
                         other.transform.rotation = respawnPoint.rotation;
-
                         if (cc != null) cc.enabled = true;
-                    }
-                    else
-                    {
-                        Debug.LogWarning("<color=orange>[虛空]</color> 你選了傳送，但忘記設定 Respawn Point 啦！");
                     }
                     break;
 

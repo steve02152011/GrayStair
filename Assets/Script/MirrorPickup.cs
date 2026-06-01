@@ -3,13 +3,17 @@ using UnityEngine;
 [RequireComponent(typeof(BoxCollider))]
 public class MirrorPickup : MonoBehaviour
 {
+    // ==========================================
+    // 【新增】：存檔系統設定
+    // ==========================================
+    [Header("存檔系統設定")]
+    [Tooltip("請輸入獨一無二的ID，例如 'Mirror_Room1'")]
+    public string uniqueID;
+
     [Header("物品設定")]
     [Tooltip("攜帶式鏡子在背包裡的 ID 是多少？(請跟基座設定的 ID 一致，例如 2)")]
     public int mirrorWeaponID = 2;
 
-    // ==========================================
-    // 【新增】：UI 綁定欄位
-    // ==========================================
     [Header("UI 綁定")]
     [Tooltip("玩家靠近時顯示的『按 F 撿起』提示群組或文字")]
     public GameObject interactPrompt;
@@ -30,6 +34,14 @@ public class MirrorPickup : MonoBehaviour
     {
         // 確保碰撞體是觸發器模式
         GetComponent<BoxCollider>().isTrigger = true;
+
+        // 【新增】：遊戲一開始，去問總部自己是不是已經被撿過了？
+        if (CheckpointManager.Instance != null && CheckpointManager.Instance.IsItemDestroyed(uniqueID))
+        {
+            // 如果已經在死掉的名單裡，就立刻銷毀自己，不讓玩家看到！
+            Destroy(gameObject);
+            return;
+        }
     }
 
     void OnTriggerEnter(Collider other)
@@ -38,11 +50,10 @@ public class MirrorPickup : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             isPlayerNear = true;
-
             // 記住玩家身上的背包系統
             playerInventory = other.transform.root.GetComponentInChildren<InventoryManager>();
 
-            // 【新增】：打開提示字
+            // 打開提示字
             if (interactPrompt != null)
             {
                 interactPrompt.SetActive(true);
@@ -64,7 +75,7 @@ public class MirrorPickup : MonoBehaviour
             isPlayerNear = false;
             playerInventory = null; // 玩家離開時清空記憶
 
-            // 【新增】：關閉提示字
+            // 關閉提示字
             if (interactPrompt != null)
             {
                 interactPrompt.SetActive(false);
@@ -81,15 +92,21 @@ public class MirrorPickup : MonoBehaviour
         {
             if (playerInventory != null)
             {
-                // 嘗試把鏡子塞進背包 (傳入我們設定好的鏡子 ID)
+                // 嘗試把鏡子塞進背包
                 if (playerInventory.AddItemToInventory(mirrorWeaponID, 1, 1))
                 {
                     Debug.Log("<color=green>[撿拾系統]</color> 成功撿起攜帶式鏡子並收進背包！");
 
-                    // 【關鍵防呆】：東西被撿走並銷毀前，一定要先把提示字關掉！
+                    // 東西被撿走並銷毀前，一定要先把提示字關掉
                     if (interactPrompt != null)
                     {
                         interactPrompt.SetActive(false);
+                    }
+
+                    // 【新增】：成功撿起時，打電話給總部，把自己的名字寫進死亡名單
+                    if (CheckpointManager.Instance != null)
+                    {
+                        CheckpointManager.Instance.RecordItemDestroyed(uniqueID);
                     }
 
                     // 塞成功了，直接把這個地上的道具徹底刪除！
