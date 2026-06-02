@@ -7,6 +7,7 @@ TagManager:
   - Grabbable
   - Mirror
   - Glass
+  - FleeNode
   layers:
   - Default
   - TransparentFX

@@ -150,6 +150,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c429bf2854042b4c8451e282d687c3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FoniaClone
-  wanderRadius: 30
+  currentState: 0
   lifeTime: 25
-  detectionRange: 4
+  wanderRadius: 30
+  wanderSpeed: 3.5
+  detectionRadius: 15
+  detectionAngle: 120
+  chaseSpeed: 6
+  catchDistance: 1.5

@@ -57,7 +57,7 @@ public class FoniaAI : MonoBehaviour
     private GameObject currentClone;
     private bool isFrozenByPlayer = false;
 
-    // 【新增】：記錄 Fonia 目前正在用多少距離跟蹤你
+    // 記錄 Fonia 目前正在用多少距離跟蹤你
     private float currentStalkDistance;
 
     void Start()
@@ -121,6 +121,7 @@ public class FoniaAI : MonoBehaviour
     private void CastClone()
     {
         if (clonePrefab == null) return;
+
         currentClone = Instantiate(clonePrefab, transform.position + transform.forward * 1.5f, transform.rotation);
         FoniaClone cloneScript = currentClone.GetComponent<FoniaClone>();
         if (cloneScript != null) cloneScript.Initialize(this, player);
@@ -146,9 +147,10 @@ public class FoniaAI : MonoBehaviour
     private void UpdateStalkState()
     {
         agent.speed = walkSpeed;
+
         if (player == null || playerCamera == null) return;
 
-        // 【保留並強化】：被摸到背後 2.0 公尺內，直接進入追殺！
+        // 被摸到背後 2.0 公尺內，直接進入追殺！
         if (Vector3.Distance(transform.position, player.position) <= killDistance)
         {
             ChangeState(AIState.Chase);
@@ -201,7 +203,7 @@ public class FoniaAI : MonoBehaviour
             {
                 agent.isStopped = false;
 
-                // 【核心新增：無聲逼近】如果玩家一直沒回頭，距離會越來越短！
+                // 如果玩家一直沒回頭，距離會越來越短！
                 currentStalkDistance -= creepSpeed * Time.deltaTime;
                 currentStalkDistance = Mathf.Max(currentStalkDistance, 0f); // 確保不會變成負數
 
@@ -222,9 +224,11 @@ public class FoniaAI : MonoBehaviour
         ChangeState(AIState.FleeThenTeleport);
         isFrozenByPlayer = false;
 
-        Debug.Log("<color=orange>[Fonia 驚嚇]</color> 被抓包了！開始動態撤退...");
+        Debug.Log("<color=orange>[Fonia 驚嚇]</color> 被抓包了！轉身動態撤退...");
 
-        agent.updateRotation = false;
+        // 【修改】：讓 NavMeshAgent 接管轉向，這樣她逃跑時就會轉頭面向逃跑的方向！
+        agent.updateRotation = true;
+
         float originalAcceleration = agent.acceleration;
         agent.acceleration = 100f;
         agent.isStopped = false;
@@ -239,6 +243,7 @@ public class FoniaAI : MonoBehaviour
             if (player != null)
             {
                 pathUpdateTimer -= Time.deltaTime;
+
                 if (pathUpdateTimer <= 0f)
                 {
                     Vector3 fleeDir = (transform.position - player.position).normalized;
@@ -252,12 +257,7 @@ public class FoniaAI : MonoBehaviour
                     pathUpdateTimer = 0.2f;
                 }
 
-                Vector3 lookDir = player.position - transform.position;
-                lookDir.y = 0;
-                if (lookDir != Vector3.zero)
-                {
-                    transform.rotation = Quaternion.LookRotation(lookDir);
-                }
+                // 【刪除】：原本在這裡強制「鎖定面相玩家」的程式碼已經拔除
 
                 if (Vector3.Distance(transform.position, player.position) <= keepFleeingDistance)
                 {
