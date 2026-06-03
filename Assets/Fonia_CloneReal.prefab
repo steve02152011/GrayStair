@@ -157,7 +157,7 @@ MonoBehaviour:
   wanderSpeed: 20
   detectionRadius: 15
   detectionAngle: 120
-  chaseSpeed: 40
+  chaseSpeed: 6
   catchDistance: 1.5
 --- !u!1001 &7351273602876937830
 PrefabInstance:
