@@ -10,7 +10,7 @@ public class FPSController : MonoBehaviour
     public float gravity = -9.81f;
 
     [Header("Look Settings")]
-    [Tooltip("½Ð§â Player ©³¤Uªº CameraHolder ªÅª«¥ó©ì¶i¨Ó")]
+    [Tooltip("ï¿½Ð§ï¿½ Player ï¿½ï¿½ï¿½Uï¿½ï¿½ CameraHolder ï¿½Åªï¿½ï¿½ï¿½ï¿½iï¿½ï¿½")]
     public Transform cameraHolder;
     public float mouseSensitivity = 2.0f;
     public float lookXLimit = 85.0f;
@@ -19,19 +19,19 @@ public class FPSController : MonoBehaviour
     public PhysicsGrabber grabber;
 
     // ==========================================
-    // ¡i­×§ï¡j¡G°w¹ï¡uªø­µ®Ä¡vªº¸}¨BÁn¨t²Î³]©w
+    // ï¿½iï¿½×§ï¿½jï¿½Gï¿½wï¿½ï¿½uï¿½ï¿½ï¿½ï¿½ï¿½Ä¡vï¿½ï¿½ï¿½}ï¿½Bï¿½nï¿½tï¿½Î³]ï¿½w
     // ==========================================
-    [Header("Audio Settings (¸}¨BÁn - ªø­µ®Äª©)")]
-    [Tooltip("½Ð©ì¦²ª±®a¨­¤Wªº AudioSource ¶i¨Ó")]
+    [Header("Audio Settings (ï¿½}ï¿½Bï¿½n - ï¿½ï¿½ï¿½ï¿½ï¿½Äªï¿½)")]
+    [Tooltip("ï¿½Ð©ì¦²ï¿½ï¿½ï¿½aï¿½ï¿½ï¿½Wï¿½ï¿½ AudioSource ï¿½iï¿½ï¿½")]
     public AudioSource footstepAudioSource;
 
-    [Tooltip("¨«¸ôªºªø­µ®Ä (¥i¥H¶ë 1~2 ­ÓÅý¥¦ÀH¾÷¬D¿ï¼½©ñ)")]
+    [Tooltip("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½iï¿½Hï¿½ï¿½ 1~2 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Hï¿½ï¿½ï¿½Dï¿½ï¼½ï¿½ï¿½)")]
     public AudioClip[] walkSounds;
 
-    [Tooltip("¶]¨Bªºªø­µ®Ä (¥i¥H¶ë 1~2 ­ÓÅý¥¦ÀH¾÷¬D¿ï¼½©ñ)")]
+    [Tooltip("ï¿½]ï¿½Bï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½iï¿½Hï¿½ï¿½ 1~2 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Hï¿½ï¿½ï¿½Dï¿½ï¼½ï¿½ï¿½)")]
     public AudioClip[] runSounds;
 
-    // ¥Î¨Ó°O¿ý«e¤@´V¬O¤£¬O¦b¶]¨B¡A¦pªGª¬ºA¤Á´«´N­n´«­µ¼Ö
+    // ï¿½Î¨Ó°Oï¿½ï¿½ï¿½eï¿½@ï¿½Vï¿½Oï¿½ï¿½ï¿½Oï¿½bï¿½]ï¿½Bï¿½Aï¿½pï¿½Gï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½ï¿½ï¿½Nï¿½nï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     private bool wasRunning = false;
     // ==========================================
 
@@ -58,7 +58,7 @@ public class FPSController : MonoBehaviour
             }
             else
             {
-                Debug.LogError("<color=red>[FPSController]</color> §ä¤£¨ì CameraHolder¡I");
+                Debug.LogError("<color=red>[FPSController]</color> ï¿½ä¤£ï¿½ï¿½ CameraHolderï¿½I");
             }
         }
     }
@@ -72,7 +72,7 @@ public class FPSController : MonoBehaviour
 
         if (isPaused) return;
 
-        // --- ³B²z·Æ¹«±ÛÂà (Look Logic) ---
+        // --- ï¿½Bï¿½zï¿½Æ¹ï¿½ï¿½ï¿½ï¿½ï¿½ (Look Logic) ---
         if (canMove && cameraHolder != null)
         {
             if (grabber == null || !grabber.isInspecting)
@@ -87,7 +87,7 @@ public class FPSController : MonoBehaviour
             }
         }
 
-        // --- ³B²z²¾°Ê (Movement Logic) ---
+        // --- ï¿½Bï¿½zï¿½ï¿½ï¿½ï¿½ (Movement Logic) ---
         bool isRunning = Input.GetKey(KeyCode.LeftShift);
         float curSpeedX = canMove ? (isRunning ? runSpeed : walkSpeed) * Input.GetAxis("Vertical") : 0;
         float curSpeedY = canMove ? (isRunning ? runSpeed : walkSpeed) * Input.GetAxis("Horizontal") : 0;
@@ -97,7 +97,7 @@ public class FPSController : MonoBehaviour
         Vector3 right = transform.TransformDirection(Vector3.right);
         moveDirection = (forward * curSpeedX) + (right * curSpeedY);
 
-        // --- ³B²z¸õÅD»P­«¤O (Jump & Gravity) ---
+        // --- ï¿½Bï¿½zï¿½ï¿½ï¿½Dï¿½Pï¿½ï¿½ï¿½O (Jump & Gravity) ---
         if (characterController.isGrounded)
         {
             moveDirection.y = -0.5f;
@@ -113,30 +113,30 @@ public class FPSController : MonoBehaviour
 
         characterController.Move(moveDirection * Time.deltaTime);
 
-        // ¨C´V©I¥s³B²z¸}¨BÁnªº¤èªk
+        // ï¿½Cï¿½Vï¿½Iï¿½sï¿½Bï¿½zï¿½}ï¿½Bï¿½nï¿½ï¿½ï¿½ï¿½k
         HandleFootsteps(isRunning);
     }
 
     // ==========================================
-    // ¡i­×§ï¡j¡G³sÄòªø­µ®Ä¼½©ñÅÞ¿è®Ö¤ß
+    // ï¿½iï¿½×§ï¿½jï¿½Gï¿½sï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½Þ¿ï¿½Ö¤ï¿½
     // ==========================================
     private void HandleFootsteps(bool isRunning)
     {
-        // ¦pªGª±®a¤£¦b¦a¤W¡B¤£¯à°Ê¡B©Î¹CÀ¸¼È°±¡A´N±j¨î§âÁn­µ¥d±¼
+        // ï¿½pï¿½Gï¿½ï¿½ï¿½aï¿½ï¿½ï¿½bï¿½aï¿½Wï¿½Bï¿½ï¿½ï¿½ï¿½Ê¡Bï¿½Î¹Cï¿½ï¿½ï¿½È°ï¿½ï¿½Aï¿½Nï¿½jï¿½ï¿½ï¿½ï¿½nï¿½ï¿½ï¿½dï¿½ï¿½
         if (!characterController.isGrounded || !canMove || isPaused)
         {
             if (footstepAudioSource.isPlaying) footstepAudioSource.Stop();
             return;
         }
 
-        // ¨ú±oª±®a¹ê»Úªº¡u¤ô¥­²¾°Ê³t«×¡v
+        // ï¿½ï¿½ï¿½oï¿½ï¿½ï¿½aï¿½ï¿½Úªï¿½ï¿½uï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê³tï¿½×¡v
         Vector3 horizontalVelocity = new Vector3(characterController.velocity.x, 0, characterController.velocity.z);
         float currentSpeed = horizontalVelocity.magnitude;
 
-        // ¦pªG¯uªº¦³¦b²¾°Ê
+        // ï¿½pï¿½Gï¿½uï¿½ï¿½ï¿½ï¿½ï¿½bï¿½ï¿½ï¿½ï¿½
         if (currentSpeed > 0.1f)
         {
-            // ¦pªGÁn­µ¨S¦b¼½¡A©ÎªÌª±®a±q¡u¨«¸ô¡v¤Á´«¦¨¡u¶]¨B¡v(©Î¤Ï¹L¨Ó)
+            // ï¿½pï¿½Gï¿½nï¿½ï¿½ï¿½Sï¿½bï¿½ï¿½ï¿½Aï¿½ÎªÌªï¿½ï¿½aï¿½qï¿½uï¿½ï¿½ï¿½ï¿½ï¿½vï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½uï¿½]ï¿½Bï¿½v(ï¿½Î¤Ï¹Lï¿½ï¿½)
             if (!footstepAudioSource.isPlaying || wasRunning != isRunning)
             {
                 PlayContinuousSound(isRunning);
@@ -145,7 +145,7 @@ public class FPSController : MonoBehaviour
         }
         else
         {
-            // ¦pªGª±®a°±¤U¨Ó¤F¡A¦Ó¥BÁn­µÁÙ¦b¼½¡A¥ß¨è±j¨îºIÂ_°±¤î¡I
+            // ï¿½pï¿½Gï¿½ï¿½ï¿½aï¿½ï¿½ï¿½Uï¿½Ó¤Fï¿½Aï¿½Ó¥Bï¿½nï¿½ï¿½ï¿½Ù¦bï¿½ï¿½ï¿½Aï¿½ß¨ï¿½jï¿½ï¿½Iï¿½_ï¿½ï¿½ï¿½ï¿½I
             if (footstepAudioSource.isPlaying)
             {
                 footstepAudioSource.Stop();
@@ -157,17 +157,17 @@ public class FPSController : MonoBehaviour
     {
         if (footstepAudioSource == null) return;
 
-        // ¨M©w­n¥Î¨«¸ô°}¦CÁÙ¬O¶]¨B°}¦C
+        // ï¿½Mï¿½wï¿½nï¿½Î¨ï¿½ï¿½ï¿½ï¿½}ï¿½Cï¿½Ù¬Oï¿½]ï¿½Bï¿½}ï¿½C
         AudioClip[] clips = isRunning ? runSounds : walkSounds;
         if (clips.Length == 0) return;
 
-        // ÀH¾÷©â¤@­Ó­µ®Ä
+        // ï¿½Hï¿½ï¿½ï¿½ï¿½@ï¿½Ó­ï¿½ï¿½ï¿½
         int randomIndex = Random.Range(0, clips.Length);
 
-        // ³]©w¼½©ñÄÝ©Ê¨Ã¶}©l¼½©ñ
+        // ï¿½]ï¿½wï¿½ï¿½ï¿½ï¿½ï¿½Ý©Ê¨Ã¶}ï¿½lï¿½ï¿½ï¿½ï¿½
         footstepAudioSource.clip = clips[randomIndex];
-        footstepAudioSource.loop = true; // ¡iÃöÁä¡j¡GÅýªø­µ®Ä¦Û°ÊµL­­´`Àô
-        footstepAudioSource.pitch = Random.Range(0.95f, 1.05f); // ·L·L§ïÅÜ­µ½Õ¡AÁ×§KÅ¥Ä±¯h³Ò
+        footstepAudioSource.loop = true; // ï¿½iï¿½ï¿½ï¿½ï¿½jï¿½Gï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¦Û°ÊµLï¿½ï¿½ï¿½`ï¿½ï¿½
+        footstepAudioSource.pitch = Random.Range(0.95f, 1.05f); // ï¿½Lï¿½Lï¿½ï¿½ï¿½Ü­ï¿½ï¿½Õ¡Aï¿½×§KÅ¥Ä±ï¿½hï¿½ï¿½
         footstepAudioSource.Play();
     }
     // ==========================================
