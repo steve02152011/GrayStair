@@ -1,12 +1,11 @@
 using UnityEngine;
-using TMPro; // 【新增】：引入 TextMeshPro UI 庫
+using TMPro;
 
 public class PlayerInteractor : MonoBehaviour
 {
     [Header("互動設定")]
     [Tooltip("玩家可以按 F 互動的最遠距離")]
     public float interactRange = 3.0f;
-    [Tooltip("互動按鍵")]
     public KeyCode interactKey = KeyCode.F;
 
     [Header("UI 設定")]
@@ -25,48 +24,61 @@ public class PlayerInteractor : MonoBehaviour
 
     void Update()
     {
-        // 如果遊戲暫停，就不執行
         if (Time.timeScale == 0f) return;
 
-        // 【關鍵 1】：每一幀一開始，預設先關閉 UI
-        if (promptText != null) promptText.enabled = false;
-
-        // 【關鍵 2】：把射線移到外面，讓它「無時無刻」都在掃描前方
+        // 1. 發射射線掃描前方
         Ray ray = playerCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
 
-        if (Physics.Raycast(ray, out RaycastHit hit, interactRange))
+        bool hitInteractable = Physics.Raycast(ray, out RaycastHit hit, interactRange);
+        IInteractable interactableObj = null;
+
+        if (hitInteractable)
         {
-            // 檢查被打到的東西身上，有沒有 IInteractable 身分證？
-            IInteractable interactableObject = hit.collider.GetComponentInParent<IInteractable>();
+            interactableObj = hit.collider.GetComponentInParent<IInteractable>();
+        }
 
-            if (interactableObject != null)
+        // ================== 動態 UI 顯示邏輯 ==================
+        if (interactableObj != null)
+        {
+            if (promptText != null)
             {
-                // ================== 動態 UI 顯示邏輯 ==================
-                if (promptText != null)
+                // 只要看到可互動物件，就一定打開文字顯示
+                promptText.enabled = true;
+
+                // 檢查看到了什麼特定的東西？
+                MirrorPedestal pedestal = hit.collider.GetComponentInParent<MirrorPedestal>();
+                ManualDoor door = hit.collider.GetComponentInParent<ManualDoor>();
+
+                if (pedestal != null)
                 {
-                    promptText.enabled = true; // 看到可互動的物件了，把文字打開
-
-                    // 檢查這個物件是不是「手動門 (ManualDoor)」
-                    ManualDoor door = hit.collider.GetComponentInParent<ManualDoor>();
-
-                    if (door != null && door.targetDoor != null)
-                    {
-                        // 根據門的狀態，顯示不同的文字
-                        promptText.text = door.targetDoor.isOpen ? "按 F 關" : "按 F 開";
-                    }
-                    else
-                    {
-                        // 如果是其他可互動的物件（例如藥丸、雷射筆）
-                        promptText.text = "按 F 互動";
-                    }
+                    // 【關鍵】：如果是鏡子基座，直接向基座索取最準確的文字狀態！
+                    promptText.text = pedestal.GetPromptText();
                 }
-                // ======================================================
-
-                // 當玩家按下 F 鍵時，執行互動
-                if (Input.GetKeyDown(interactKey))
+                else if (door != null && door.targetDoor != null)
                 {
-                    interactableObject.OnInteract(this.transform);
+                    // 如果是門
+                    promptText.text = door.targetDoor.isOpen ? "按 F 關" : "按 F 開";
                 }
+                else
+                {
+                    // 如果是其他普通物件 (藥丸、攜帶鏡等)
+                    promptText.text = "按 F 互動";
+                }
+            }
+
+            // ================== 按鍵互動邏輯 ==================
+            if (Input.GetKeyDown(interactKey))
+            {
+                interactableObj.OnInteract(this.transform);
+            }
+        }
+        else
+        {
+            // 【完美修復】：只要視線一離開任何互動物件，或退後超出距離
+            // 立刻毫無懸念地把 UI 關閉，絕對不會卡在畫面上！
+            if (promptText != null)
+            {
+                promptText.enabled = false;
             }
         }
     }

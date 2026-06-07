@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.AI;
-using System.Collections; // 【新增】：為了使用協程 (Coroutine)
+using System.Collections;
 
 [RequireComponent(typeof(NavMeshAgent))]
 public class DoloAI : MonoBehaviour
@@ -13,17 +13,47 @@ public class DoloAI : MonoBehaviour
     [Header("目標設定")]
     public Transform player;
     private CharacterController playerController;
-    private Collider playerCollider; // 【新增】：用來控制碰撞穿透
-    private Collider myCollider;     // 【新增】：Dolo 自己的碰撞體
+    private Collider playerCollider;
+    private Collider myCollider;
+
+    // ==========================================
+    // 【新增】：音效設定區
+    // ==========================================
+    [Header("音效來源設定")]
+    [Tooltip("用來播放叫聲、攻擊聲的 AudioSource")]
+    public AudioSource voiceAudioSource;
+    [Tooltip("用來播放腳步聲的專屬 AudioSource")]
+    public AudioSource footstepAudioSource;
+
+    [Header("腳步聲設定")]
+    [Tooltip("走路/跑步的音效陣列 (隨機播放以增加真實感)")]
+    public AudioClip[] footstepSounds;
+    [Tooltip("漫遊時每隔幾秒播放一次腳步聲？(跑步時會自動加快)")]
+    public float footstepInterval = 0.6f;
+    private float footstepTimer;
+
+    [Header("隨機閒置音效 (三不五時發出的聲音)")]
+    [Tooltip("閒置時會隨機播放的低吼聲")]
+    public AudioClip[] idleSounds;
+    [Tooltip("最少隔幾秒發出一次聲音？")]
+    public float idleSoundMinInterval = 5f;
+    [Tooltip("最多隔幾秒發出一次聲音？")]
+    public float idleSoundMaxInterval = 12f;
+    private float idleSoundTimer;
+
+    [Header("狀態觸發音效")]
+    [Tooltip("發現玩家，切換到 Chase 狀態時的凶狠吼叫聲")]
+    public AudioClip chaseRoarSound;
+    [Tooltip("咬到玩家造成傷害時的撕咬聲")]
+    public AudioClip attackHitSound;
+    [Tooltip("被雷射照到時的痛苦慘叫聲")]
+    public AudioClip painSound;
+    // ==========================================
 
     [Header("尋聲定位設定 (盲眼聽覺)")]
-    [Tooltip("Dolo 的基礎聽力極限距離")]
     public float maxHearingRadius = 25f;
-    [Tooltip("玩家要走多快才會發出聲音？(低於此速度視為完全靜音)")]
     public float silentSpeedThreshold = 0.5f;
-    [Tooltip("玩家的奔跑速度基準 (用來換算最大噪音，請填入你FPS腳本的RunSpeed)")]
     public float playerMaxSpeedReference = 10f;
-    [Tooltip("Dolo 到達聲音來源後，會在該處停留尋找幾秒？")]
     public float investigateTime = 3f;
 
     private Vector3 lastHeardPosition;
@@ -44,29 +74,17 @@ public class DoloAI : MonoBehaviour
     public float attackCooldown = 2f;
     private float lastAttackTime;
 
-    // ==========================================
-    // 【新增】：問題一 (受傷穿透防卡死)
-    // ==========================================
     [Header("防卡死設定")]
-    [Tooltip("咬到玩家後，玩家可以穿透 Dolo 身體逃跑的秒數")]
     public float ignoreCollisionDuration = 2f;
 
-    // ==========================================
-    // 【新增】：問題二 (指定避難所)
-    // ==========================================
     [Header("懼光逃跑設定 (避難所)")]
-    [Tooltip("請在場景中佈置空物件，並給它們設定這個 Tag")]
     public string fleeNodeTag = "FleeNode";
     public float fleeSpeed = 12f;
     public float fleeDistance = 15f;
     public float fleeDuration = 4f;
 
-    // ==========================================
-    // 【新增】：異空間傳送設定
-    // ==========================================
     [Header("異空間傳送設定")]
-    [Tooltip("攻擊時把玩家拖入光學迷宮的機率 (0.0=不會, 0.5=一半機率, 1.0=每次都會)")]
-    public float teleportChance = 0.2f; // 預設 20% 機率
+    public float teleportChance = 0.2f;
 
     [Header("攻擊力設定")]
     public float damageAmount = 20f;
@@ -77,7 +95,7 @@ public class DoloAI : MonoBehaviour
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
-        myCollider = GetComponent<Collider>(); // 取得 Dolo 的碰撞體
+        myCollider = GetComponent<Collider>();
         stateTimer = wanderTimer;
 
         if (player == null)
@@ -89,12 +107,19 @@ public class DoloAI : MonoBehaviour
         if (player != null)
         {
             playerController = player.GetComponent<CharacterController>();
-            playerCollider = player.GetComponent<Collider>(); // 取得玩家的碰撞體
+            playerCollider = player.GetComponent<Collider>();
         }
+
+        // 初始化隨機音效計時器
+        idleSoundTimer = Random.Range(idleSoundMinInterval, idleSoundMaxInterval);
     }
 
     void Update()
     {
+        // 執行音效邏輯
+        HandleFootsteps();
+        HandleIdleSounds();
+
         switch (currentState)
         {
             case AIState.Wander: UpdateWanderState(); break;
@@ -104,15 +129,68 @@ public class DoloAI : MonoBehaviour
         }
     }
 
+    // ================== 音效處理邏輯 ==================
+    private void HandleFootsteps()
+    {
+        // 只要 Dolo 在移動 (速度大於 0.1) 就播放腳步聲
+        if (agent.velocity.magnitude > 0.1f && !agent.isStopped)
+        {
+            footstepTimer -= Time.deltaTime;
+            if (footstepTimer <= 0)
+            {
+                if (footstepAudioSource != null && footstepSounds.Length > 0)
+                {
+                    AudioClip step = footstepSounds[Random.Range(0, footstepSounds.Length)];
+                    footstepAudioSource.PlayOneShot(step);
+                }
+
+                // 如果是追擊或逃跑狀態，腳步聲頻率會變快 (乘以 0.6 倍時間)
+                float currentInterval = (currentState == AIState.Chase || currentState == AIState.Flee) ? footstepInterval * 0.6f : footstepInterval;
+                footstepTimer = currentInterval;
+            }
+        }
+        else
+        {
+            // 停下時立刻重置，這樣下次起步時會馬上踩出第一步
+            footstepTimer = 0f;
+        }
+    }
+
+    private void HandleIdleSounds()
+    {
+        // 只有在遊蕩(Wander)且沒有在追人時，才會三不五時發出聲音
+        if (currentState == AIState.Wander)
+        {
+            idleSoundTimer -= Time.deltaTime;
+            if (idleSoundTimer <= 0)
+            {
+                if (voiceAudioSource != null && idleSounds.Length > 0)
+                {
+                    AudioClip idleClip = idleSounds[Random.Range(0, idleSounds.Length)];
+                    voiceAudioSource.PlayOneShot(idleClip);
+                }
+                // 重新決定下一次發出聲音的時間
+                idleSoundTimer = Random.Range(idleSoundMinInterval, idleSoundMaxInterval);
+            }
+        }
+    }
+
     private void ChangeState(AIState newState)
     {
         if (currentState == newState) return;
         Debug.Log($"<color=cyan>[Dolo 大腦]</color> 狀態切換：{currentState} ? <b>{newState}</b>");
+
+        // 【新增】：如果切換到 Chase 狀態，播放凶狠吼叫聲
+        if (newState == AIState.Chase && voiceAudioSource != null && chaseRoarSound != null)
+        {
+            voiceAudioSource.PlayOneShot(chaseRoarSound);
+        }
+
         currentState = newState;
         stateTimer = 0f;
     }
 
-    // ================== 漫遊狀態 (瞎眼，只靠聽覺) ==================
+    // ================== AI 狀態邏輯 (維持不變) ==================
 
     private void UpdateWanderState()
     {
@@ -138,10 +216,7 @@ public class DoloAI : MonoBehaviour
             }
         }
 
-        if (CheckForSounds())
-        {
-            ChangeState(AIState.Chase);
-        }
+        if (CheckForSounds()) ChangeState(AIState.Chase);
     }
 
     private void PickNewWanderDestination()
@@ -155,33 +230,25 @@ public class DoloAI : MonoBehaviour
     {
         Vector3 rayStart = transform.position + (Vector3.up * 0.5f);
         if (Physics.Raycast(rayStart, transform.forward, avoidLaserDistance, laserLayer)) return true;
-
         Vector3 leftDir = Quaternion.Euler(0, -whiskersAngle, 0) * transform.forward;
         if (Physics.Raycast(rayStart, leftDir, avoidLaserDistance, laserLayer)) return true;
-
         Vector3 rightDir = Quaternion.Euler(0, whiskersAngle, 0) * transform.forward;
         if (Physics.Raycast(rayStart, rightDir, avoidLaserDistance, laserLayer)) return true;
 
         return false;
     }
 
-    // ================== 追擊狀態 (循聲調查) ==================
-
     private void UpdateChaseState()
     {
         agent.speed = runSpeed;
 
-        if (CheckForSounds())
-        {
-            stateTimer = 0f;
-        }
+        if (CheckForSounds()) stateTimer = 0f;
 
         agent.SetDestination(lastHeardPosition);
 
         if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance + 0.5f)
         {
             stateTimer += Time.deltaTime;
-
             if (Vector3.Distance(transform.position, player.position) <= attackRange)
             {
                 ChangeState(AIState.Attack);
@@ -193,22 +260,17 @@ public class DoloAI : MonoBehaviour
         }
         else
         {
-            if (Vector3.Distance(transform.position, player.position) <= attackRange)
-            {
-                ChangeState(AIState.Attack);
-            }
+            if (Vector3.Distance(transform.position, player.position) <= attackRange) ChangeState(AIState.Attack);
         }
     }
 
     private bool CheckForSounds()
     {
         if (player == null || playerController == null) return false;
-
         Vector3 horizontalVelocity = new Vector3(playerController.velocity.x, 0, playerController.velocity.z);
         float playerSpeed = horizontalVelocity.magnitude;
 
         if (playerSpeed <= silentSpeedThreshold) return false;
-
         float currentNoiseRadius = Mathf.Lerp(0, maxHearingRadius, playerSpeed / playerMaxSpeedReference);
 
         if (Vector3.Distance(transform.position, player.position) <= currentNoiseRadius)
@@ -216,11 +278,8 @@ public class DoloAI : MonoBehaviour
             lastHeardPosition = player.position;
             return true;
         }
-
         return false;
     }
-
-    // ================== 【修改】：懼光逃跑 (前往避難所) ==================
 
     public void ReactToLaser(Vector3 laserSourcePos)
     {
@@ -228,15 +287,18 @@ public class DoloAI : MonoBehaviour
         ChangeState(AIState.Flee);
         Debug.Log("<color=blue>[Dolo 恐懼]</color> 嗚啊！！被光照到了！尋找避難所...");
 
-        // 1. 尋找場景中所有的避難所
-        GameObject[] fleeNodes = GameObject.FindGameObjectsWithTag(fleeNodeTag);
+        // 【新增】：被雷射照到時播放痛苦聲
+        if (voiceAudioSource != null && painSound != null)
+        {
+            voiceAudioSource.PlayOneShot(painSound);
+        }
 
+        GameObject[] fleeNodes = GameObject.FindGameObjectsWithTag(fleeNodeTag);
         if (fleeNodes.Length > 0)
         {
             Transform bestNode = null;
             float maxDistance = -1f;
 
-            // 2. 掃描所有避難所，找出「離玩家最遠的」那一個
             foreach (GameObject node in fleeNodes)
             {
                 float distToPlayer = Vector3.Distance(node.transform.position, player.position);
@@ -247,16 +309,14 @@ public class DoloAI : MonoBehaviour
                 }
             }
 
-            // 3. 往最安全的避難所全力衝刺
             if (bestNode != null)
             {
                 agent.speed = fleeSpeed;
                 agent.SetDestination(bestNode.position);
-                return; // 成功找到避難所，直接結束
+                return;
             }
         }
 
-        // 4. (備用方案)：如果場景裡忘記放避難所，就退回原本的隨機亂跑邏輯
         Debug.LogWarning("<color=orange>[Dolo 警告]</color> 找不到 FleeNode！使用隨機逃跑模式。");
         Vector3 fleeDirection = (transform.position - laserSourcePos).normalized;
         Vector3 targetFleePoint = transform.position + fleeDirection * fleeDistance;
@@ -279,8 +339,6 @@ public class DoloAI : MonoBehaviour
         if (stateTimer >= fleeDuration) ChangeState(AIState.Wander);
     }
 
-    // ================== 【修改】：攻擊狀態 (一擊脫離與穿透) ==================
-
     private void UpdateAttackState()
     {
         agent.isStopped = true;
@@ -295,32 +353,29 @@ public class DoloAI : MonoBehaviour
             PlayerSanity playerSanity = player.GetComponent<PlayerSanity>();
             if (playerSanity != null)
             {
-                playerSanity.TakeDamage(damageAmount); // 先扣一次原本的咬傷
+                playerSanity.TakeDamage(damageAmount);
+            }
+
+            // 【新增】：播放撕咬玩家的音效
+            if (voiceAudioSource != null && attackHitSound != null)
+            {
+                voiceAudioSource.PlayOneShot(attackHitSound);
             }
 
             lastAttackTime = Time.time;
 
-            // ==========================================
-            // 【新增】：判定是否觸發異空間傳送！
-            // ==========================================
             if (Random.value <= teleportChance)
             {
                 if (OtherworldManager.Instance != null && !OtherworldManager.Instance.isInOtherworld)
                 {
-                    // 執行傳送
                     OtherworldManager.Instance.SendToOtherworld(player.gameObject);
-
-                    // 【關鍵修復】：鬆開煞車！必須解除導航鎖定，不然他會永遠定在原地
                     agent.isStopped = false;
-
-                    // 玩家消失了，Dolo 切換回漫遊狀態，並「立刻離開原地」，避免玩家回來時被守屍
                     ChangeState(AIState.Wander);
                     PickNewWanderDestination();
-                    return; // 提早結束，不執行後面的穿透協程
+                    return;
                 }
             }
 
-            // 【保留】：啟動防卡死穿透機制 (如果沒有被傳送走才執行)
             if (gameObject.activeInHierarchy)
             {
                 StartCoroutine(IgnoreCollisionRoutine());
@@ -334,23 +389,13 @@ public class DoloAI : MonoBehaviour
         }
     }
 
-    // 【新增】：讓玩家可以從 Dolo 身體穿過去的協程
     private IEnumerator IgnoreCollisionRoutine()
     {
         if (myCollider != null && playerCollider != null)
         {
-            Debug.Log("<color=green>[防卡死]</color> 玩家現在可以穿過怪物逃跑！");
-
-            // 關閉 Dolo 和玩家之間的物理碰撞 (但他們還是踩得到地板)
             Physics.IgnoreCollision(myCollider, playerCollider, true);
-
-            // 等待指定的秒數
             yield return new WaitForSeconds(ignoreCollisionDuration);
-
-            // 恢復物理碰撞
             Physics.IgnoreCollision(myCollider, playerCollider, false);
-
-            Debug.Log("<color=green>[防卡死]</color> 碰撞恢復實體。");
         }
     }
 
