@@ -35,8 +35,8 @@ public class InventoryManager : MonoBehaviour
     [Header("武器資料庫")]
     public GameObject[] allWeapons;
 
-    private int[] slots = new int[4] { -1, -1, -1, -1 };
-    private int[] itemCounts = new int[4] { 0, 0, 0, 0 };
+    private int[] _slots = new int[4] { -1, -1, -1, -1 };
+    private int[] _itemCounts = new int[4] { 0, 0, 0, 0 };
     private int currentIndex = 0;
 
     void Start()
@@ -216,5 +216,30 @@ public class InventoryManager : MonoBehaviour
     {
         // 回傳當前選中格子的物品 ID
         return slots[currentIndex];
+    }
+    // ==============================================================
+    // 【新增】：支援存檔系統的資料傳遞通道
+    // ==============================================================
+
+    // 讓存檔系統能公開讀取私有陣列
+    public int[] slots { get { return _slots; } } // 將原本的 private int[] slots 改名為 _slots
+    public int[] itemCounts { get { return _itemCounts; } } // 將原本的 private int[] itemCounts 改名為 _itemCounts
+
+    // 讓存檔系統知道玩家現在選哪一格
+    public int GetCurrentSlotIndex()
+    {
+        return currentIndex;
+    }
+
+    // 接收存檔系統傳回來的資料，並強制更新 UI 和手上裝備
+    public void RestoreInventorySnapshot(int[] savedSlots, int[] savedCounts, int savedIndex)
+    {
+        System.Array.Copy(savedSlots, _slots, 4);
+        System.Array.Copy(savedCounts, _itemCounts, 4);
+        currentIndex = savedIndex;
+
+        RefreshInventoryUI();
+        EquipWeapon();
+        ShowUI();
     }
 }

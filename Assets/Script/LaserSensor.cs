@@ -3,30 +3,34 @@ using UnityEngine;
 
 public class LaserSensor : MonoBehaviour, ILaserReceiver
 {
-    [Header("連動設定")]
-    [Tooltip("把所有你要控制的『門』拖曳到這個列表裡！")]
+    [Header("連動設定 (單一感應器控制)")]
+    [Tooltip("如果是單一感應器就能開的機關，拖曳到這裡；如果是複數解謎，請保持這裡為空！")]
     public DoorController[] targetDoors;
 
-    // 【新增】：一個用來裝橋樑的陣列！
     [Tooltip("把所有你要控制的『橋樑』拖曳到這個列表裡！")]
     public BridgeController[] targetBridges;
+
+    // ==========================================
+    // 【新增】：讓外部的「多重感應器管理器」可以讀取它的狀態
+    // ==========================================
+    public bool IsActive { get; private set; }
 
     private float lastHitTime = -1f;
     private float activeDuration = 0.1f;
 
     void Update()
     {
-        bool isBeingHit = (Time.time - lastHitTime) <= activeDuration;
+        // 判斷自己是否正在被雷射照射
+        IsActive = (Time.time - lastHitTime) <= activeDuration;
 
         foreach (DoorController door in targetDoors)
         {
-            if (door != null) door.SetDoorState(isBeingHit);
+            if (door != null) door.SetDoorState(IsActive);
         }
 
-        // 【新增】：通知陣列裡所有的橋樑伸長或縮短！
         foreach (BridgeController bridge in targetBridges)
         {
-            if (bridge != null) bridge.SetBridgeState(isBeingHit);
+            if (bridge != null) bridge.SetBridgeState(IsActive);
         }
     }
 

@@ -3,6 +3,13 @@ using System.Collections;
 
 public class ManualLaser : MonoBehaviour, IInteractable
 {
+    // ==========================================
+    // 【新增】：存檔系統設定
+    // ==========================================
+    [Header("存檔系統設定")]
+    [Tooltip("請輸入獨一無二的ID，例如 'Laser_Bridge_01'")]
+    public string uniqueID;
+
     [Header("連動設定")]
     [Tooltip("把你要控制的雷射發射器拖曳到這裡！")]
     public LaserEmitter targetLaser;
@@ -15,9 +22,6 @@ public class ManualLaser : MonoBehaviour, IInteractable
     [Tooltip("如果按鈕本身會變色，把掛有 MaterialSwitcher 的物件拖來這裡")]
     public MaterialSwitcher visualFeedback;
 
-    // ==========================================
-    // 【新增】：按鈕與機關音效設定
-    // ==========================================
     [Header("音效設定")]
     [Tooltip("用來播放按鈕與機關聲音的 AudioSource (請掛在按鈕物件上並拖曳進來)")]
     public AudioSource buttonAudioSource;
@@ -30,18 +34,27 @@ public class ManualLaser : MonoBehaviour, IInteractable
 
     [Tooltip("倒數結束雷射關閉的音效 (選填，例如：斷電聲)")]
     public AudioClip failSound;
-    // ==========================================
 
     private bool isTimerRunning = false;  // 正在倒數中
     private bool isPermanentlyOn = false; // 是否已經成功連線常駐
 
+    void Start()
+    {
+        // 【新增】：一開局就問總部，我這關是不是已經解過了？
+        if (CheckpointManager.Instance != null && CheckpointManager.Instance.IsLaserActivated(uniqueID))
+        {
+            isPermanentlyOn = true;
+            if (targetLaser != null) targetLaser.isLaserOn = true;
+            if (visualFeedback != null) visualFeedback.ToggleVisual();
+        }
+    }
+
     public void OnInteract(Transform interactor)
     {
         // 1. 核心防呆：如果已經成功常駐開啟，或者正在倒數中，就直接退回！
-        // (因為直接退回了，所以玩家狂按也不會執行到下面播放聲音的程式碼)
         if (isPermanentlyOn || isTimerRunning) return;
 
-        // 【新增】：確認可以按之後，播放按下按鈕的聲音
+        // 確認可以按之後，播放按下按鈕的聲音
         if (buttonAudioSource != null && pressSound != null)
         {
             buttonAudioSource.PlayOneShot(pressSound);
@@ -83,10 +96,16 @@ public class ManualLaser : MonoBehaviour, IInteractable
             // 成功：保持開啟
             isPermanentlyOn = true;
 
-            // 【新增】：播放連線成功音效
+            // 播放連線成功音效
             if (buttonAudioSource != null && successSound != null)
             {
                 buttonAudioSource.PlayOneShot(successSound);
+            }
+
+            // 【新增】：成功解開時，打電話給總部，把自己的名字登記為「已啟動」
+            if (CheckpointManager.Instance != null)
+            {
+                CheckpointManager.Instance.RecordLaserActivated(uniqueID);
             }
 
             Debug.Log("<color=green>[機關]</color> 雷射成功連接接收器，已鎖定為常駐啟動！");
@@ -97,7 +116,7 @@ public class ManualLaser : MonoBehaviour, IInteractable
             if (targetLaser != null) targetLaser.isLaserOn = false;
             if (visualFeedback != null) visualFeedback.ToggleVisual(); // 把按鈕視覺切換回來
 
-            // 【新增】：播放失敗/斷電音效
+            // 播放失敗/斷電音效
             if (buttonAudioSource != null && failSound != null)
             {
                 buttonAudioSource.PlayOneShot(failSound);

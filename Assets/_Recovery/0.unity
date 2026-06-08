@@ -614,6 +614,12 @@ MonoBehaviour:
   speedMode: 0
   openSpeed: 3
   closeSpeed: 5
+  allowAIAccess: 0
+  aiDetectRadius: 3.5
+  doorAudioSource: {fileID: 0}
+  openSound: {fileID: 0}
+  closeSound: {fileID: 0}
+  lockedSound: {fileID: 0}
   isOpen: 0
 --- !u!114 &42358513
 MonoBehaviour:
@@ -2661,6 +2667,12 @@ MonoBehaviour:
   speedMode: 0
   openSpeed: 3
   closeSpeed: 5
+  allowAIAccess: 0
+  aiDetectRadius: 3.5
+  doorAudioSource: {fileID: 0}
+  openSound: {fileID: 0}
+  closeSound: {fileID: 0}
+  lockedSound: {fileID: 0}
   isOpen: 0
 --- !u!114 &85825129
 MonoBehaviour:
@@ -3404,6 +3416,12 @@ MonoBehaviour:
   speedMode: 0
   openSpeed: 3
   closeSpeed: 5
+  allowAIAccess: 0
+  aiDetectRadius: 3.5
+  doorAudioSource: {fileID: 0}
+  openSound: {fileID: 0}
+  closeSound: {fileID: 0}
+  lockedSound: {fileID: 0}
   isOpen: 0
 --- !u!114 &119485150
 MonoBehaviour:
@@ -4564,8 +4582,10 @@ Material:
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
+  stringTagMap:
+    RenderType: Opaque
+  disabledShaderPasses:
+  - MOTIONVECTORS
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
@@ -4575,9 +4595,9 @@ Material:
         m_Scale: {x: -1, y: 1}
         m_Offset: {x: 1, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
+        m_Texture: {fileID: 2036078983}
+        m_Scale: {x: -1, y: 1}
+        m_Offset: {x: 1, y: 0}
     m_Ints: []
     m_Floats:
     - _AddPrecomputedVelocity: 0
@@ -4598,7 +4618,7 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Color: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!1 &141858253
@@ -5875,6 +5895,12 @@ MonoBehaviour:
   speedMode: 0
   openSpeed: 3
   closeSpeed: 5
+  allowAIAccess: 0
+  aiDetectRadius: 3.5
+  doorAudioSource: {fileID: 0}
+  openSound: {fileID: 0}
+  closeSound: {fileID: 0}
+  lockedSound: {fileID: 0}
   isOpen: 0
 --- !u!114 &193276781
 MonoBehaviour:
@@ -6105,8 +6131,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df48bf4276659af488285f6a3425340f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ManualLaser
+  uniqueID: 
   targetLaser: {fileID: 208752835}
+  activeDuration: 5
   visualFeedback: {fileID: 0}
+  buttonAudioSource: {fileID: 0}
+  pressSound: {fileID: 0}
+  successSound: {fileID: 0}
+  failSound: {fileID: 0}
 --- !u!114 &208752835
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6122,11 +6154,16 @@ MonoBehaviour:
   isLaserOn: 1
   maxDistance: 100
   maxBounces: 10
+  laserHitMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
   enableDynamicLights: 1
   lightColor: {r: 1, g: 0.5, b: 0, a: 1}
   lightIntensity: 2
   lightRange: 2
   enableLightShadows: 0
+  laserAudioSource: {fileID: 0}
+  laserHumSound: {fileID: 0}
 --- !u!120 &208752836
 LineRenderer:
   serializedVersion: 3
@@ -7476,6 +7513,60 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 252153967}
   m_Mesh: {fileID: -260828045020273336, guid: d6e7e6d2196375e41a277094914c044b, type: 3}
+--- !u!21 &253798851
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Universal Render Pipeline/Unlit
+  m_Shader: {fileID: 4800000, guid: 650dd9526735d5b46b79224bc6e94025, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BaseMap:
+        m_Texture: {fileID: 497296821}
+        m_Scale: {x: -1, y: 1}
+        m_Offset: {x: 1, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _AddPrecomputedVelocity: 0
+    - _AlphaClip: 0
+    - _AlphaToMask: 0
+    - _Blend: 0
+    - _BlendOp: 0
+    - _Cull: 2
+    - _Cutoff: 0.5
+    - _DstBlend: 0
+    - _DstBlendAlpha: 0
+    - _QueueOffset: 0
+    - _SampleGI: 0
+    - _SrcBlend: 1
+    - _SrcBlendAlpha: 1
+    - _Surface: 0
+    - _XRMotionVectorsPass: 1
+    - _ZWrite: 1
+    m_Colors:
+    - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
 --- !u!1001 &254556672
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8097,6 +8188,12 @@ MonoBehaviour:
   speedMode: 0
   openSpeed: 3
   closeSpeed: 5
+  allowAIAccess: 0
+  aiDetectRadius: 3.5
+  doorAudioSource: {fileID: 0}
+  openSound: {fileID: 0}
+  closeSound: {fileID: 0}
+  lockedSound: {fileID: 0}
   isOpen: 0
 --- !u!114 &274485459
 MonoBehaviour:
@@ -9228,6 +9325,12 @@ MonoBehaviour:
   speedMode: 0
   openSpeed: 3
   closeSpeed: 5
+  allowAIAccess: 0
+  aiDetectRadius: 3.5
+  doorAudioSource: {fileID: 0}
+  openSound: {fileID: 0}
+  closeSound: {fileID: 0}
+  lockedSound: {fileID: 0}
   isOpen: 0
 --- !u!114 &314692721
 MonoBehaviour:
@@ -9916,7 +10019,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 1972193903}
+  - {fileID: 2008495011}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -11934,43 +12037,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 406245150}
   m_Mesh: {fileID: 8513090328108672433, guid: d6e7e6d2196375e41a277094914c044b, type: 3}
---- !u!84 &406662055
-RenderTexture:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: Auto_Mirror_RT_Mirror_Quad
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_IsAlphaChannelOptional: 0
-  serializedVersion: 6
-  m_Width: 256
-  m_Height: 256
-  m_AntiAliasing: 1
-  m_MipCount: -1
-  m_DepthStencilFormat: 90
-  m_ColorFormat: 4
-  m_MipMap: 0
-  m_GenerateMips: 1
-  m_SRGB: 1
-  m_UseDynamicScale: 0
-  m_UseDynamicScaleExplicit: 0
-  m_BindMS: 0
-  m_EnableCompatibleFormat: 1
-  m_EnableRandomWrite: 0
-  m_TextureSettings:
-    serializedVersion: 2
-    m_FilterMode: 1
-    m_Aniso: 0
-    m_MipBias: 0
-    m_WrapU: 1
-    m_WrapV: 1
-    m_WrapW: 1
-  m_Dimension: 2
-  m_VolumeDepth: 1
-  m_ShadowSamplingMode: 2
 --- !u!1001 &410753785
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13839,8 +13905,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df48bf4276659af488285f6a3425340f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ManualLaser
+  uniqueID: 
   targetLaser: {fileID: 455612224}
+  activeDuration: 5
   visualFeedback: {fileID: 0}
+  buttonAudioSource: {fileID: 0}
+  pressSound: {fileID: 0}
+  successSound: {fileID: 0}
+  failSound: {fileID: 0}
 --- !u!114 &455612224
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13856,11 +13928,16 @@ MonoBehaviour:
   isLaserOn: 1
   maxDistance: 100
   maxBounces: 10
+  laserHitMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
   enableDynamicLights: 1
   lightColor: {r: 1, g: 0.5, b: 0, a: 1}
   lightIntensity: 2
   lightRange: 2
   enableLightShadows: 0
+  laserAudioSource: {fileID: 0}
+  laserHumSound: {fileID: 0}
 --- !u!120 &455612225
 LineRenderer:
   serializedVersion: 3
@@ -15006,6 +15083,9 @@ MonoBehaviour:
   mouseSensitivity: 2
   lookXLimit: 85
   grabber: {fileID: 492853577}
+  footstepAudioSource: {fileID: 0}
+  walkSounds: []
+  runSounds: []
   canMove: 1
 --- !u!143 &492853579
 CharacterController:
@@ -15414,6 +15494,43 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 495867271}
   m_Mesh: {fileID: -8584583635655100394, guid: d6e7e6d2196375e41a277094914c044b, type: 3}
+--- !u!84 &497296821
+RenderTexture:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Auto_Mirror_RT_Mirror_Quad
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_IsAlphaChannelOptional: 0
+  serializedVersion: 6
+  m_Width: 256
+  m_Height: 256
+  m_AntiAliasing: 1
+  m_MipCount: -1
+  m_DepthStencilFormat: 90
+  m_ColorFormat: 4
+  m_MipMap: 0
+  m_GenerateMips: 1
+  m_SRGB: 1
+  m_UseDynamicScale: 0
+  m_UseDynamicScaleExplicit: 0
+  m_BindMS: 0
+  m_EnableCompatibleFormat: 1
+  m_EnableRandomWrite: 0
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 1
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 1
+    m_WrapV: 1
+    m_WrapW: 1
+  m_Dimension: 2
+  m_VolumeDepth: 1
+  m_ShadowSamplingMode: 2
 --- !u!1 &501141137
 GameObject:
   m_ObjectHideFlags: 0
@@ -16800,7 +16917,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 797673472}
+  - {fileID: 253798851}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -17203,6 +17320,12 @@ MonoBehaviour:
   speedMode: 0
   openSpeed: 3
   closeSpeed: 5
+  allowAIAccess: 0
+  aiDetectRadius: 3.5
+  doorAudioSource: {fileID: 0}
+  openSound: {fileID: 0}
+  closeSound: {fileID: 0}
+  lockedSound: {fileID: 0}
   isOpen: 0
 --- !u!114 &553689048
 MonoBehaviour:
@@ -17811,7 +17934,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 1713236721}
+  - {fileID: 1937333908}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -19338,6 +19461,12 @@ MonoBehaviour:
   speedMode: 0
   openSpeed: 3
   closeSpeed: 5
+  allowAIAccess: 0
+  aiDetectRadius: 3.5
+  doorAudioSource: {fileID: 0}
+  openSound: {fileID: 0}
+  closeSound: {fileID: 0}
+  lockedSound: {fileID: 0}
   isOpen: 0
 --- !u!114 &628674432
 MonoBehaviour:
@@ -19718,6 +19847,12 @@ MonoBehaviour:
   speedMode: 0
   openSpeed: 3
   closeSpeed: 5
+  allowAIAccess: 0
+  aiDetectRadius: 3.5
+  doorAudioSource: {fileID: 0}
+  openSound: {fileID: 0}
+  closeSound: {fileID: 0}
+  lockedSound: {fileID: 0}
   isOpen: 0
 --- !u!1 &638392248
 GameObject:
@@ -20827,6 +20962,12 @@ MonoBehaviour:
   speedMode: 0
   openSpeed: 3
   closeSpeed: 5
+  allowAIAccess: 0
+  aiDetectRadius: 3.5
+  doorAudioSource: {fileID: 0}
+  openSound: {fileID: 0}
+  closeSound: {fileID: 0}
+  lockedSound: {fileID: 0}
   isOpen: 0
 --- !u!114 &695876566
 MonoBehaviour:
@@ -21282,6 +21423,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43930243d6fb9744e91afeacd1b980ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ObjectRotator
+  uniqueID: 
   rotationStep: 15
   interactDistance: 2.5
 --- !u!65 &717202592
@@ -21658,6 +21800,12 @@ MonoBehaviour:
   speedMode: 0
   openSpeed: 3
   closeSpeed: 5
+  allowAIAccess: 0
+  aiDetectRadius: 3.5
+  doorAudioSource: {fileID: 0}
+  openSound: {fileID: 0}
+  closeSound: {fileID: 0}
+  lockedSound: {fileID: 0}
   isOpen: 0
 --- !u!114 &725228387
 MonoBehaviour:
@@ -22108,6 +22256,12 @@ MonoBehaviour:
   speedMode: 0
   openSpeed: 3
   closeSpeed: 5
+  allowAIAccess: 0
+  aiDetectRadius: 3.5
+  doorAudioSource: {fileID: 0}
+  openSound: {fileID: 0}
+  closeSound: {fileID: 0}
+  lockedSound: {fileID: 0}
   isOpen: 0
 --- !u!114 &747095676
 MonoBehaviour:
@@ -22314,6 +22468,12 @@ MonoBehaviour:
   speedMode: 0
   openSpeed: 3
   closeSpeed: 5
+  allowAIAccess: 0
+  aiDetectRadius: 3.5
+  doorAudioSource: {fileID: 0}
+  openSound: {fileID: 0}
+  closeSound: {fileID: 0}
+  lockedSound: {fileID: 0}
   isOpen: 0
 --- !u!114 &757039593
 MonoBehaviour:
@@ -23912,6 +24072,12 @@ MonoBehaviour:
   speedMode: 0
   openSpeed: 3
   closeSpeed: 5
+  allowAIAccess: 0
+  aiDetectRadius: 3.5
+  doorAudioSource: {fileID: 0}
+  openSound: {fileID: 0}
+  closeSound: {fileID: 0}
+  lockedSound: {fileID: 0}
   isOpen: 0
 --- !u!114 &794183436
 MonoBehaviour:
@@ -24005,6 +24171,12 @@ MonoBehaviour:
   speedMode: 0
   openSpeed: 3
   closeSpeed: 5
+  allowAIAccess: 0
+  aiDetectRadius: 3.5
+  doorAudioSource: {fileID: 0}
+  openSound: {fileID: 0}
+  closeSound: {fileID: 0}
+  lockedSound: {fileID: 0}
   isOpen: 0
 --- !u!114 &796590529
 MonoBehaviour:
@@ -24041,60 +24213,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.0980549, y: 1.8747667, z: 0.10525483}
   m_Center: {x: 0.49315286, y: -0.029003328, z: -0.05324862}
---- !u!21 &797673472
-Material:
-  serializedVersion: 8
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: Universal Render Pipeline/Unlit
-  m_Shader: {fileID: 4800000, guid: 650dd9526735d5b46b79224bc6e94025, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
-  m_InvalidKeywords: []
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_LockedProperties: 
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _BaseMap:
-        m_Texture: {fileID: 406662055}
-        m_Scale: {x: -1, y: 1}
-        m_Offset: {x: 1, y: 0}
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Ints: []
-    m_Floats:
-    - _AddPrecomputedVelocity: 0
-    - _AlphaClip: 0
-    - _AlphaToMask: 0
-    - _Blend: 0
-    - _BlendOp: 0
-    - _Cull: 2
-    - _Cutoff: 0.5
-    - _DstBlend: 0
-    - _DstBlendAlpha: 0
-    - _QueueOffset: 0
-    - _SampleGI: 0
-    - _SrcBlend: 1
-    - _SrcBlendAlpha: 1
-    - _Surface: 0
-    - _XRMotionVectorsPass: 1
-    - _ZWrite: 1
-    m_Colors:
-    - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Color: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-  m_BuildTextureStacks: []
-  m_AllowLocking: 1
 --- !u!1 &798454663
 GameObject:
   m_ObjectHideFlags: 0
@@ -24265,6 +24383,12 @@ MonoBehaviour:
   speedMode: 0
   openSpeed: 3
   closeSpeed: 5
+  allowAIAccess: 0
+  aiDetectRadius: 3.5
+  doorAudioSource: {fileID: 0}
+  openSound: {fileID: 0}
+  closeSound: {fileID: 0}
+  lockedSound: {fileID: 0}
   isOpen: 0
 --- !u!114 &798567251
 MonoBehaviour:
@@ -24569,6 +24693,12 @@ MonoBehaviour:
   speedMode: 0
   openSpeed: 3
   closeSpeed: 5
+  allowAIAccess: 0
+  aiDetectRadius: 3.5
+  doorAudioSource: {fileID: 0}
+  openSound: {fileID: 0}
+  closeSound: {fileID: 0}
+  lockedSound: {fileID: 0}
   isOpen: 0
 --- !u!114 &824585585
 MonoBehaviour:
@@ -25527,43 +25657,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 869565504}
   m_Mesh: {fileID: -3226065315962434932, guid: cb7b9088fffe7e849bd3e09a55264195, type: 3}
---- !u!84 &872741433
-RenderTexture:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: Auto_Mirror_RT_Mirror_Quad
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_IsAlphaChannelOptional: 0
-  serializedVersion: 6
-  m_Width: 256
-  m_Height: 256
-  m_AntiAliasing: 1
-  m_MipCount: -1
-  m_DepthStencilFormat: 90
-  m_ColorFormat: 4
-  m_MipMap: 0
-  m_GenerateMips: 1
-  m_SRGB: 1
-  m_UseDynamicScale: 0
-  m_UseDynamicScaleExplicit: 0
-  m_BindMS: 0
-  m_EnableCompatibleFormat: 1
-  m_EnableRandomWrite: 0
-  m_TextureSettings:
-    serializedVersion: 2
-    m_FilterMode: 1
-    m_Aniso: 0
-    m_MipBias: 0
-    m_WrapU: 1
-    m_WrapV: 1
-    m_WrapW: 1
-  m_Dimension: 2
-  m_VolumeDepth: 1
-  m_ShadowSamplingMode: 2
 --- !u!1 &873024151
 GameObject:
   m_ObjectHideFlags: 0
@@ -26263,6 +26356,12 @@ MonoBehaviour:
   speedMode: 0
   openSpeed: 3
   closeSpeed: 5
+  allowAIAccess: 0
+  aiDetectRadius: 3.5
+  doorAudioSource: {fileID: 0}
+  openSound: {fileID: 0}
+  closeSound: {fileID: 0}
+  lockedSound: {fileID: 0}
   isOpen: 0
 --- !u!114 &899155849
 MonoBehaviour:
@@ -26378,6 +26477,12 @@ MonoBehaviour:
   speedMode: 0
   openSpeed: 3
   closeSpeed: 5
+  allowAIAccess: 0
+  aiDetectRadius: 3.5
+  doorAudioSource: {fileID: 0}
+  openSound: {fileID: 0}
+  closeSound: {fileID: 0}
+  lockedSound: {fileID: 0}
   isOpen: 0
 --- !u!114 &905657367
 MonoBehaviour:
@@ -27430,6 +27535,12 @@ MonoBehaviour:
   speedMode: 0
   openSpeed: 3
   closeSpeed: 5
+  allowAIAccess: 0
+  aiDetectRadius: 3.5
+  doorAudioSource: {fileID: 0}
+  openSound: {fileID: 0}
+  closeSound: {fileID: 0}
+  lockedSound: {fileID: 0}
   isOpen: 0
 --- !u!114 &947405313
 MonoBehaviour:
@@ -28113,6 +28224,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43930243d6fb9744e91afeacd1b980ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ObjectRotator
+  uniqueID: 
   rotationStep: 15
   interactDistance: 2.5
 --- !u!65 &972300121
@@ -28504,6 +28616,12 @@ MonoBehaviour:
   speedMode: 0
   openSpeed: 3
   closeSpeed: 5
+  allowAIAccess: 0
+  aiDetectRadius: 3.5
+  doorAudioSource: {fileID: 0}
+  openSound: {fileID: 0}
+  closeSound: {fileID: 0}
+  lockedSound: {fileID: 0}
   isOpen: 0
 --- !u!114 &1015277734
 MonoBehaviour:
@@ -30427,6 +30545,12 @@ MonoBehaviour:
   speedMode: 0
   openSpeed: 3
   closeSpeed: 5
+  allowAIAccess: 0
+  aiDetectRadius: 3.5
+  doorAudioSource: {fileID: 0}
+  openSound: {fileID: 0}
+  closeSound: {fileID: 0}
+  lockedSound: {fileID: 0}
   isOpen: 0
 --- !u!114 &1098850607
 MonoBehaviour:
@@ -32427,8 +32551,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df48bf4276659af488285f6a3425340f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ManualLaser
+  uniqueID: 
   targetLaser: {fileID: 1163450351}
+  activeDuration: 5
   visualFeedback: {fileID: 0}
+  buttonAudioSource: {fileID: 0}
+  pressSound: {fileID: 0}
+  successSound: {fileID: 0}
+  failSound: {fileID: 0}
 --- !u!114 &1163450351
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32444,11 +32574,16 @@ MonoBehaviour:
   isLaserOn: 1
   maxDistance: 100
   maxBounces: 10
+  laserHitMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
   enableDynamicLights: 1
   lightColor: {r: 1, g: 0.5, b: 0, a: 1}
   lightIntensity: 2
   lightRange: 2
   enableLightShadows: 0
+  laserAudioSource: {fileID: 0}
+  laserHumSound: {fileID: 0}
 --- !u!120 &1163450352
 LineRenderer:
   serializedVersion: 3
@@ -32950,6 +33085,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43930243d6fb9744e91afeacd1b980ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ObjectRotator
+  uniqueID: 
   rotationStep: 15
   interactDistance: 2.5
 --- !u!65 &1172146503
@@ -34829,8 +34965,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df48bf4276659af488285f6a3425340f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ManualLaser
+  uniqueID: 
   targetLaser: {fileID: 1239308888}
+  activeDuration: 5
   visualFeedback: {fileID: 0}
+  buttonAudioSource: {fileID: 0}
+  pressSound: {fileID: 0}
+  successSound: {fileID: 0}
+  failSound: {fileID: 0}
 --- !u!114 &1239308888
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34846,11 +34988,16 @@ MonoBehaviour:
   isLaserOn: 1
   maxDistance: 100
   maxBounces: 10
+  laserHitMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
   enableDynamicLights: 1
   lightColor: {r: 1, g: 0.5, b: 0, a: 1}
   lightIntensity: 2
   lightRange: 2
   enableLightShadows: 0
+  laserAudioSource: {fileID: 0}
+  laserHumSound: {fileID: 0}
 --- !u!120 &1239308889
 LineRenderer:
   serializedVersion: 3
@@ -36212,8 +36359,10 @@ Material:
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
+  stringTagMap:
+    RenderType: Opaque
+  disabledShaderPasses:
+  - MOTIONVECTORS
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
@@ -36223,9 +36372,9 @@ Material:
         m_Scale: {x: -1, y: 1}
         m_Offset: {x: 1, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
+        m_Texture: {fileID: 1943240865}
+        m_Scale: {x: -1, y: 1}
+        m_Offset: {x: 1, y: 0}
     m_Ints: []
     m_Floats:
     - _AddPrecomputedVelocity: 0
@@ -36246,7 +36395,7 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Color: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!1 &1281724551
@@ -37591,6 +37740,43 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.1768755, y: 0.07411724, z: 0.071616605}
   m_Center: {x: 0.5901494, y: -0.0028212655, z: -0.0010153227}
+--- !u!84 &1330398403
+RenderTexture:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Auto_Mirror_RT_Mirror_Quad
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_IsAlphaChannelOptional: 0
+  serializedVersion: 6
+  m_Width: 256
+  m_Height: 256
+  m_AntiAliasing: 1
+  m_MipCount: -1
+  m_DepthStencilFormat: 90
+  m_ColorFormat: 4
+  m_MipMap: 0
+  m_GenerateMips: 1
+  m_SRGB: 1
+  m_UseDynamicScale: 0
+  m_UseDynamicScaleExplicit: 0
+  m_BindMS: 0
+  m_EnableCompatibleFormat: 1
+  m_EnableRandomWrite: 0
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 1
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 1
+    m_WrapV: 1
+    m_WrapW: 1
+  m_Dimension: 2
+  m_VolumeDepth: 1
+  m_ShadowSamplingMode: 2
 --- !u!1 &1333258013
 GameObject:
   m_ObjectHideFlags: 0
@@ -38352,6 +38538,12 @@ MonoBehaviour:
   speedMode: 0
   openSpeed: 3
   closeSpeed: 5
+  allowAIAccess: 0
+  aiDetectRadius: 3.5
+  doorAudioSource: {fileID: 0}
+  openSound: {fileID: 0}
+  closeSound: {fileID: 0}
+  lockedSound: {fileID: 0}
   isOpen: 0
 --- !u!114 &1372855332
 MonoBehaviour:
@@ -38737,6 +38929,12 @@ MonoBehaviour:
   speedMode: 0
   openSpeed: 3
   closeSpeed: 5
+  allowAIAccess: 0
+  aiDetectRadius: 3.5
+  doorAudioSource: {fileID: 0}
+  openSound: {fileID: 0}
+  closeSound: {fileID: 0}
+  lockedSound: {fileID: 0}
   isOpen: 0
 --- !u!114 &1386799928
 MonoBehaviour:
@@ -39952,8 +40150,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df48bf4276659af488285f6a3425340f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ManualLaser
+  uniqueID: 
   targetLaser: {fileID: 1403801432}
+  activeDuration: 5
   visualFeedback: {fileID: 0}
+  buttonAudioSource: {fileID: 0}
+  pressSound: {fileID: 0}
+  successSound: {fileID: 0}
+  failSound: {fileID: 0}
 --- !u!114 &1403801432
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39969,11 +40173,16 @@ MonoBehaviour:
   isLaserOn: 1
   maxDistance: 100
   maxBounces: 10
+  laserHitMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
   enableDynamicLights: 1
   lightColor: {r: 1, g: 0.5, b: 0, a: 1}
   lightIntensity: 2
   lightRange: 2
   enableLightShadows: 0
+  laserAudioSource: {fileID: 0}
+  laserHumSound: {fileID: 0}
 --- !u!120 &1403801433
 LineRenderer:
   serializedVersion: 3
@@ -40333,6 +40542,12 @@ MonoBehaviour:
   speedMode: 0
   openSpeed: 3
   closeSpeed: 5
+  allowAIAccess: 0
+  aiDetectRadius: 3.5
+  doorAudioSource: {fileID: 0}
+  openSound: {fileID: 0}
+  closeSound: {fileID: 0}
+  lockedSound: {fileID: 0}
   isOpen: 0
 --- !u!114 &1416968814
 MonoBehaviour:
@@ -41800,6 +42015,12 @@ MonoBehaviour:
   speedMode: 0
   openSpeed: 3
   closeSpeed: 5
+  allowAIAccess: 0
+  aiDetectRadius: 3.5
+  doorAudioSource: {fileID: 0}
+  openSound: {fileID: 0}
+  closeSound: {fileID: 0}
+  lockedSound: {fileID: 0}
   isOpen: 0
 --- !u!114 &1484883125
 MonoBehaviour:
@@ -44153,6 +44374,12 @@ MonoBehaviour:
   speedMode: 0
   openSpeed: 3
   closeSpeed: 5
+  allowAIAccess: 0
+  aiDetectRadius: 3.5
+  doorAudioSource: {fileID: 0}
+  openSound: {fileID: 0}
+  closeSound: {fileID: 0}
+  lockedSound: {fileID: 0}
   isOpen: 0
 --- !u!114 &1572254558
 MonoBehaviour:
@@ -44755,6 +44982,12 @@ MonoBehaviour:
   speedMode: 0
   openSpeed: 3
   closeSpeed: 5
+  allowAIAccess: 0
+  aiDetectRadius: 3.5
+  doorAudioSource: {fileID: 0}
+  openSound: {fileID: 0}
+  closeSound: {fileID: 0}
+  lockedSound: {fileID: 0}
   isOpen: 0
 --- !u!114 &1589482265
 MonoBehaviour:
@@ -45093,6 +45326,12 @@ MonoBehaviour:
   speedMode: 0
   openSpeed: 3
   closeSpeed: 5
+  allowAIAccess: 0
+  aiDetectRadius: 3.5
+  doorAudioSource: {fileID: 0}
+  openSound: {fileID: 0}
+  closeSound: {fileID: 0}
+  lockedSound: {fileID: 0}
   isOpen: 0
 --- !u!114 &1594665028
 MonoBehaviour:
@@ -45754,6 +45993,12 @@ MonoBehaviour:
   speedMode: 0
   openSpeed: 3
   closeSpeed: 5
+  allowAIAccess: 0
+  aiDetectRadius: 3.5
+  doorAudioSource: {fileID: 0}
+  openSound: {fileID: 0}
+  closeSound: {fileID: 0}
+  lockedSound: {fileID: 0}
   isOpen: 0
 --- !u!114 &1619209736
 MonoBehaviour:
@@ -46400,6 +46645,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43930243d6fb9744e91afeacd1b980ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ObjectRotator
+  uniqueID: 
   rotationStep: 15
   interactDistance: 2.5
 --- !u!65 &1650192970
@@ -47368,6 +47614,12 @@ MonoBehaviour:
   speedMode: 0
   openSpeed: 3
   closeSpeed: 5
+  allowAIAccess: 0
+  aiDetectRadius: 3.5
+  doorAudioSource: {fileID: 0}
+  openSound: {fileID: 0}
+  closeSound: {fileID: 0}
+  lockedSound: {fileID: 0}
   isOpen: 0
 --- !u!114 &1683915703
 MonoBehaviour:
@@ -47594,6 +47846,12 @@ MonoBehaviour:
   speedMode: 0
   openSpeed: 3
   closeSpeed: 5
+  allowAIAccess: 0
+  aiDetectRadius: 3.5
+  doorAudioSource: {fileID: 0}
+  openSound: {fileID: 0}
+  closeSound: {fileID: 0}
+  lockedSound: {fileID: 0}
   isOpen: 0
 --- !u!114 &1687814304
 MonoBehaviour:
@@ -48275,6 +48533,12 @@ MonoBehaviour:
   speedMode: 0
   openSpeed: 3
   closeSpeed: 5
+  allowAIAccess: 0
+  aiDetectRadius: 3.5
+  doorAudioSource: {fileID: 0}
+  openSound: {fileID: 0}
+  closeSound: {fileID: 0}
+  lockedSound: {fileID: 0}
   isOpen: 0
 --- !u!114 &1709178792
 MonoBehaviour:
@@ -48311,60 +48575,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.0980549, y: 1.8747667, z: 0.10525483}
   m_Center: {x: 0.49315286, y: -0.029003328, z: -0.05324862}
---- !u!21 &1713236721
-Material:
-  serializedVersion: 8
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: Universal Render Pipeline/Unlit
-  m_Shader: {fileID: 4800000, guid: 650dd9526735d5b46b79224bc6e94025, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
-  m_InvalidKeywords: []
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_LockedProperties: 
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _BaseMap:
-        m_Texture: {fileID: 872741433}
-        m_Scale: {x: -1, y: 1}
-        m_Offset: {x: 1, y: 0}
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Ints: []
-    m_Floats:
-    - _AddPrecomputedVelocity: 0
-    - _AlphaClip: 0
-    - _AlphaToMask: 0
-    - _Blend: 0
-    - _BlendOp: 0
-    - _Cull: 2
-    - _Cutoff: 0.5
-    - _DstBlend: 0
-    - _DstBlendAlpha: 0
-    - _QueueOffset: 0
-    - _SampleGI: 0
-    - _SrcBlend: 1
-    - _SrcBlendAlpha: 1
-    - _Surface: 0
-    - _XRMotionVectorsPass: 1
-    - _ZWrite: 1
-    m_Colors:
-    - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Color: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-  m_BuildTextureStacks: []
-  m_AllowLocking: 1
 --- !u!1 &1714422000
 GameObject:
   m_ObjectHideFlags: 0
@@ -49342,6 +49552,12 @@ MonoBehaviour:
   speedMode: 0
   openSpeed: 3
   closeSpeed: 5
+  allowAIAccess: 0
+  aiDetectRadius: 3.5
+  doorAudioSource: {fileID: 0}
+  openSound: {fileID: 0}
+  closeSound: {fileID: 0}
+  lockedSound: {fileID: 0}
   isOpen: 0
 --- !u!114 &1744777681
 MonoBehaviour:
@@ -49638,6 +49854,12 @@ MonoBehaviour:
   speedMode: 0
   openSpeed: 3
   closeSpeed: 5
+  allowAIAccess: 0
+  aiDetectRadius: 3.5
+  doorAudioSource: {fileID: 0}
+  openSound: {fileID: 0}
+  closeSound: {fileID: 0}
+  lockedSound: {fileID: 0}
   isOpen: 0
 --- !u!114 &1757138775
 MonoBehaviour:
@@ -50068,6 +50290,12 @@ MonoBehaviour:
   speedMode: 0
   openSpeed: 3
   closeSpeed: 5
+  allowAIAccess: 0
+  aiDetectRadius: 3.5
+  doorAudioSource: {fileID: 0}
+  openSound: {fileID: 0}
+  closeSound: {fileID: 0}
+  lockedSound: {fileID: 0}
   isOpen: 0
 --- !u!114 &1771923053
 MonoBehaviour:
@@ -50564,6 +50792,12 @@ MonoBehaviour:
   speedMode: 0
   openSpeed: 3
   closeSpeed: 5
+  allowAIAccess: 0
+  aiDetectRadius: 3.5
+  doorAudioSource: {fileID: 0}
+  openSound: {fileID: 0}
+  closeSound: {fileID: 0}
+  lockedSound: {fileID: 0}
   isOpen: 0
 --- !u!114 &1780481472
 MonoBehaviour:
@@ -52440,8 +52674,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DoloAI
   currentState: 0
   player: {fileID: 0}
-  detectionRadius: 45
-  detectionAngle: 120
+  maxHearingRadius: 25
+  silentSpeedThreshold: 0.5
+  playerMaxSpeedReference: 10
+  investigateTime: 3
   laserLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -52453,9 +52689,12 @@ MonoBehaviour:
   runSpeed: 8
   attackRange: 2.5
   attackCooldown: 2
+  ignoreCollisionDuration: 2
+  fleeNodeTag: FleeNode
   fleeSpeed: 12
   fleeDistance: 50
   fleeDuration: 4
+  teleportChance: 0.2
   damageAmount: 20
 --- !u!195 &1843855695
 NavMeshAgent:
@@ -52873,6 +53112,12 @@ MonoBehaviour:
   speedMode: 0
   openSpeed: 3
   closeSpeed: 5
+  allowAIAccess: 0
+  aiDetectRadius: 3.5
+  doorAudioSource: {fileID: 0}
+  openSound: {fileID: 0}
+  closeSound: {fileID: 0}
+  lockedSound: {fileID: 0}
   isOpen: 0
 --- !u!114 &1853561458
 MonoBehaviour:
@@ -55229,6 +55474,60 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!21 &1937333908
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Universal Render Pipeline/Unlit
+  m_Shader: {fileID: 4800000, guid: 650dd9526735d5b46b79224bc6e94025, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BaseMap:
+        m_Texture: {fileID: 1330398403}
+        m_Scale: {x: -1, y: 1}
+        m_Offset: {x: 1, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _AddPrecomputedVelocity: 0
+    - _AlphaClip: 0
+    - _AlphaToMask: 0
+    - _Blend: 0
+    - _BlendOp: 0
+    - _Cull: 2
+    - _Cutoff: 0.5
+    - _DstBlend: 0
+    - _DstBlendAlpha: 0
+    - _QueueOffset: 0
+    - _SampleGI: 0
+    - _SrcBlend: 1
+    - _SrcBlendAlpha: 1
+    - _Surface: 0
+    - _XRMotionVectorsPass: 1
+    - _ZWrite: 1
+    m_Colors:
+    - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
 --- !u!1 &1938288633
 GameObject:
   m_ObjectHideFlags: 0
@@ -55818,60 +56117,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.3158862, y: 1.5133396, z: 2.3953142}
   m_Center: {x: -0.000000007450581, y: 0, z: -0.44770548}
---- !u!21 &1972193903
-Material:
-  serializedVersion: 8
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: Universal Render Pipeline/Unlit
-  m_Shader: {fileID: 4800000, guid: 650dd9526735d5b46b79224bc6e94025, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
-  m_InvalidKeywords: []
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_LockedProperties: 
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _BaseMap:
-        m_Texture: {fileID: 2071279580}
-        m_Scale: {x: -1, y: 1}
-        m_Offset: {x: 1, y: 0}
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Ints: []
-    m_Floats:
-    - _AddPrecomputedVelocity: 0
-    - _AlphaClip: 0
-    - _AlphaToMask: 0
-    - _Blend: 0
-    - _BlendOp: 0
-    - _Cull: 2
-    - _Cutoff: 0.5
-    - _DstBlend: 0
-    - _DstBlendAlpha: 0
-    - _QueueOffset: 0
-    - _SampleGI: 0
-    - _SrcBlend: 1
-    - _SrcBlendAlpha: 1
-    - _Surface: 0
-    - _XRMotionVectorsPass: 1
-    - _ZWrite: 1
-    m_Colors:
-    - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Color: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-  m_BuildTextureStacks: []
-  m_AllowLocking: 1
 --- !u!1 &1972754859
 GameObject:
   m_ObjectHideFlags: 0
@@ -57016,6 +57261,60 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d53263508b5f564da89b6f67bdb7153, type: 3}
+--- !u!21 &2008495011
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Universal Render Pipeline/Unlit
+  m_Shader: {fileID: 4800000, guid: 650dd9526735d5b46b79224bc6e94025, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BaseMap:
+        m_Texture: {fileID: 2040368853}
+        m_Scale: {x: -1, y: 1}
+        m_Offset: {x: 1, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _AddPrecomputedVelocity: 0
+    - _AlphaClip: 0
+    - _AlphaToMask: 0
+    - _Blend: 0
+    - _BlendOp: 0
+    - _Cull: 2
+    - _Cutoff: 0.5
+    - _DstBlend: 0
+    - _DstBlendAlpha: 0
+    - _QueueOffset: 0
+    - _SampleGI: 0
+    - _SrcBlend: 1
+    - _SrcBlendAlpha: 1
+    - _Surface: 0
+    - _XRMotionVectorsPass: 1
+    - _ZWrite: 1
+    m_Colors:
+    - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
 --- !u!1 &2017639798
 GameObject:
   m_ObjectHideFlags: 0
@@ -57382,6 +57681,12 @@ MonoBehaviour:
   speedMode: 0
   openSpeed: 3
   closeSpeed: 5
+  allowAIAccess: 0
+  aiDetectRadius: 3.5
+  doorAudioSource: {fileID: 0}
+  openSound: {fileID: 0}
+  closeSound: {fileID: 0}
+  lockedSound: {fileID: 0}
   isOpen: 0
 --- !u!114 &2030539253
 MonoBehaviour:
@@ -58044,6 +58349,43 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2036937277}
   m_Mesh: {fileID: -5030895341452730902, guid: d6e7e6d2196375e41a277094914c044b, type: 3}
+--- !u!84 &2040368853
+RenderTexture:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Auto_Mirror_RT_Mirror_Quad
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_IsAlphaChannelOptional: 0
+  serializedVersion: 6
+  m_Width: 256
+  m_Height: 256
+  m_AntiAliasing: 1
+  m_MipCount: -1
+  m_DepthStencilFormat: 90
+  m_ColorFormat: 4
+  m_MipMap: 0
+  m_GenerateMips: 1
+  m_SRGB: 1
+  m_UseDynamicScale: 0
+  m_UseDynamicScaleExplicit: 0
+  m_BindMS: 0
+  m_EnableCompatibleFormat: 1
+  m_EnableRandomWrite: 0
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 1
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 1
+    m_WrapV: 1
+    m_WrapW: 1
+  m_Dimension: 2
+  m_VolumeDepth: 1
+  m_ShadowSamplingMode: 2
 --- !u!1 &2043158474 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: d31348c67dbdcab4289929e39118f596, type: 3}
@@ -58820,6 +59162,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43930243d6fb9744e91afeacd1b980ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ObjectRotator
+  uniqueID: 
   rotationStep: 15
   interactDistance: 2.5
 --- !u!65 &2065607963
@@ -59017,43 +59360,6 @@ Transform:
   - {fileID: 1199447694}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 64.361}
---- !u!84 &2071279580
-RenderTexture:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: Auto_Mirror_RT_Mirror_Quad
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_IsAlphaChannelOptional: 0
-  serializedVersion: 6
-  m_Width: 256
-  m_Height: 256
-  m_AntiAliasing: 1
-  m_MipCount: -1
-  m_DepthStencilFormat: 90
-  m_ColorFormat: 4
-  m_MipMap: 0
-  m_GenerateMips: 1
-  m_SRGB: 1
-  m_UseDynamicScale: 0
-  m_UseDynamicScaleExplicit: 0
-  m_BindMS: 0
-  m_EnableCompatibleFormat: 1
-  m_EnableRandomWrite: 0
-  m_TextureSettings:
-    serializedVersion: 2
-    m_FilterMode: 1
-    m_Aniso: 0
-    m_MipBias: 0
-    m_WrapU: 1
-    m_WrapV: 1
-    m_WrapW: 1
-  m_Dimension: 2
-  m_VolumeDepth: 1
-  m_ShadowSamplingMode: 2
 --- !u!1 &2074453753
 GameObject:
   m_ObjectHideFlags: 0
@@ -60616,6 +60922,12 @@ MonoBehaviour:
   speedMode: 0
   openSpeed: 3
   closeSpeed: 5
+  allowAIAccess: 0
+  aiDetectRadius: 3.5
+  doorAudioSource: {fileID: 0}
+  openSound: {fileID: 0}
+  closeSound: {fileID: 0}
+  lockedSound: {fileID: 0}
   isOpen: 0
 --- !u!114 &2124854988
 MonoBehaviour:
@@ -62860,7 +63172,7 @@ MonoBehaviour:
   m_OverrideTileSize: 0
   m_TileSize: 256
   m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.16666667
+  m_VoxelSize: 0.083333336
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 23800000, guid: 2bc94d92a912057409f1825422ef694f, type: 2}
   m_BuildHeightMesh: 0
@@ -71483,6 +71795,12 @@ MonoBehaviour:
   speedMode: 1
   openSpeed: 0.5
   closeSpeed: 5
+  allowAIAccess: 0
+  aiDetectRadius: 3.5
+  doorAudioSource: {fileID: 0}
+  openSound: {fileID: 0}
+  closeSound: {fileID: 0}
+  lockedSound: {fileID: 0}
   isOpen: 0
 --- !u!33 &5671797935969369283
 MeshFilter:
@@ -72097,6 +72415,12 @@ MonoBehaviour:
   speedMode: 1
   openSpeed: 0.5
   closeSpeed: 5
+  allowAIAccess: 0
+  aiDetectRadius: 3.5
+  doorAudioSource: {fileID: 0}
+  openSound: {fileID: 0}
+  closeSound: {fileID: 0}
+  lockedSound: {fileID: 0}
   isOpen: 0
 --- !u!23 &5921054359272459782
 MeshRenderer:
@@ -74012,6 +74336,12 @@ MonoBehaviour:
   speedMode: 1
   openSpeed: 0.2
   closeSpeed: 5
+  allowAIAccess: 0
+  aiDetectRadius: 3.5
+  doorAudioSource: {fileID: 0}
+  openSound: {fileID: 0}
+  closeSound: {fileID: 0}
+  lockedSound: {fileID: 0}
   isOpen: 0
 --- !u!23 &7042999543629049656
 MeshRenderer:
@@ -74083,6 +74413,12 @@ MonoBehaviour:
   speedMode: 1
   openSpeed: 0.2
   closeSpeed: 5
+  allowAIAccess: 0
+  aiDetectRadius: 3.5
+  doorAudioSource: {fileID: 0}
+  openSound: {fileID: 0}
+  closeSound: {fileID: 0}
+  lockedSound: {fileID: 0}
   isOpen: 0
 --- !u!23 &7049619676572669531
 MeshRenderer:
@@ -74879,6 +75215,12 @@ MonoBehaviour:
   speedMode: 1
   openSpeed: 0.2
   closeSpeed: 5
+  allowAIAccess: 0
+  aiDetectRadius: 3.5
+  doorAudioSource: {fileID: 0}
+  openSound: {fileID: 0}
+  closeSound: {fileID: 0}
+  lockedSound: {fileID: 0}
   isOpen: 0
 --- !u!23 &7391385297265540960
 MeshRenderer:
@@ -78997,6 +79339,12 @@ MonoBehaviour:
   speedMode: 1
   openSpeed: 0.5
   closeSpeed: 5
+  allowAIAccess: 0
+  aiDetectRadius: 3.5
+  doorAudioSource: {fileID: 0}
+  openSound: {fileID: 0}
+  closeSound: {fileID: 0}
+  lockedSound: {fileID: 0}
   isOpen: 0
 --- !u!23 &8822456725238994304
 MeshRenderer:
@@ -80226,6 +80574,12 @@ MonoBehaviour:
   speedMode: 1
   openSpeed: 0.2
   closeSpeed: 5
+  allowAIAccess: 0
+  aiDetectRadius: 3.5
+  doorAudioSource: {fileID: 0}
+  openSound: {fileID: 0}
+  closeSound: {fileID: 0}
+  lockedSound: {fileID: 0}
   isOpen: 0
 --- !u!23 &9207149358707509984
 MeshRenderer:

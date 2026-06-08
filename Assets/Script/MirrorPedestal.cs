@@ -2,123 +2,113 @@
 
 public class MirrorPedestal : MonoBehaviour, IInteractable
 {
+    [Header("存檔系統設定")]
+    public string uniqueID;
+
     [Header("基座狀態")]
-    [Tooltip("基座上現在有沒有放著鏡子？")]
     public bool hasMirror = false;
 
     [Header("物件綁定")]
-    [Tooltip("放在基座上的『實體鏡子模型』 (請拖曳子物件進來)")]
     public GameObject mirrorModel;
-
-    [Header("預覽視覺設定 (新增)")]
-    [Tooltip("半透明的『預覽鏡子模型』 (請複製一個鏡子，換上半透明材質，拖曳進來)")]
     public GameObject ghostMirrorModel;
 
-    [Tooltip("玩家要靠多近看著基座，才會顯示預覽？(請設定與你按F互動一樣的距離)")]
-    public float previewDistance = 4f;
+    [Header("互動設定")]
+    [Tooltip("玩家可以按互動鍵的最遠距離")]
+    public float interactRange = 3.0f; // 建議與 PlayerInteractor 保持一致
+    public KeyCode interactKey = KeyCode.F;
 
     [Header("背包與物品設定")]
-    [Tooltip("攜帶式鏡子在 InventoryManager 的 allWeapons 陣列裡是第幾個？")]
     public int mirrorWeaponID = 2;
 
     private InventoryManager playerInventory;
+    private Camera mainCam;
 
     void Start()
     {
-        if (mirrorModel != null)
+        mainCam = Camera.main;
+
+        if (CheckpointManager.Instance != null)
         {
-            mirrorModel.SetActive(hasMirror);
+            int state = CheckpointManager.Instance.GetPedestalState(uniqueID);
+            if (state == 1) hasMirror = true;
+            else if (state == -1) hasMirror = false;
         }
 
-        // 遊戲一開始，預覽模型一定是隱藏的
-        if (ghostMirrorModel != null)
-        {
-            ghostMirrorModel.SetActive(false);
-        }
+        if (mirrorModel != null) mirrorModel.SetActive(hasMirror);
+        if (ghostMirrorModel != null) ghostMirrorModel.SetActive(false);
 
-        // 【已修復警告】：使用新版 Unity 效能更好的 API 來尋找背包系統
         playerInventory = FindFirstObjectByType<InventoryManager>();
     }
 
     void Update()
     {
-        // 每幀處理預覽模型的顯示邏輯
-        HandleGhostPreview();
-    }
+        if (playerInventory == null || mainCam == null) return;
 
-    private void HandleGhostPreview()
-    {
-        if (ghostMirrorModel == null || playerInventory == null) return;
+        bool isLookingAtMe = false;
+        Ray ray = new Ray(mainCam.transform.position, mainCam.transform.forward);
 
-        bool canShowPreview = false;
-
-        // 只有當「基座是空的」且「玩家手上確實拿著鏡子」時，才需要檢查視線
-        if (!hasMirror && playerInventory.GetCurrentItemID() == mirrorWeaponID)
+        if (Physics.Raycast(ray, out RaycastHit hit, interactRange))
         {
-            Camera mainCam = Camera.main;
-            if (mainCam != null)
+            // 確保射線打到的是這個基座 (包含子物件的 Collider)
+            MirrorPedestal hitPedestal = hit.collider.GetComponentInParent<MirrorPedestal>();
+            if (hitPedestal == this)
             {
-                // 從攝影機正中央往前打出一道射線
-                Ray ray = new Ray(mainCam.transform.position, mainCam.transform.forward);
-
-                if (Physics.Raycast(ray, out RaycastHit hit, previewDistance))
-                {
-                    // 如果射線打到的正好是這個基座本身，代表玩家正在對準它！
-                    if (hit.collider.gameObject == this.gameObject)
-                    {
-                        canShowPreview = true;
-                    }
-                }
+                isLookingAtMe = true;
             }
         }
 
-        // 根據上面的檢查結果，決定要不要顯示預覽
-        ghostMirrorModel.SetActive(canShowPreview);
+        // 處理半透明預覽模型
+        bool canShowPreview = isLookingAtMe && !hasMirror && (playerInventory.GetCurrentItemID() == mirrorWeaponID);
+        if (ghostMirrorModel != null) ghostMirrorModel.SetActive(canShowPreview);
+    }
+
+    // ==========================================
+    // 【新增】：專門準備給 PlayerInteractor 讀取的文字
+    // ==========================================
+    public string GetPromptText()
+    {
+        string keyName = interactKey.ToString();
+
+        if (hasMirror)
+        {
+            return $"按 {keyName} 取下鏡子、Q或E 旋轉基座";
+        }
+        else
+        {
+            if (playerInventory != null && playerInventory.GetCurrentItemID() == mirrorWeaponID)
+            {
+                return $"按 {keyName} 裝上鏡子、Q或E 旋轉基座";
+            }
+            else
+            {
+                return "Q或E 旋轉基座";
+            }
+        }
     }
 
     public void OnInteract(Transform interactor)
     {
-        if (playerInventory == null)
-        {
-            playerInventory = interactor.GetComponent<InventoryManager>();
-        }
-
-        if (playerInventory == null)
-        {
-            Debug.LogWarning("<color=red>[基座]</color> 找不到玩家的 InventoryManager！");
-            return;
-        }
+        if (playerInventory == null) playerInventory = interactor.GetComponent<InventoryManager>();
+        if (playerInventory == null) return;
 
         if (hasMirror)
         {
-            bool added = playerInventory.AddItemToInventory(mirrorWeaponID, 1, 1);
-
-            if (added)
+            if (playerInventory.AddItemToInventory(mirrorWeaponID, 1, 1))
             {
                 hasMirror = false;
                 if (mirrorModel != null) mirrorModel.SetActive(false);
-                Debug.Log("<color=green>[基座]</color> 拿起了攜帶式鏡子！");
+                if (CheckpointManager.Instance != null) CheckpointManager.Instance.RecordPedestalState(uniqueID, false);
             }
         }
         else
         {
-            int currentItemID = playerInventory.GetCurrentItemID();
-
-            if (currentItemID == mirrorWeaponID)
+            if (playerInventory.GetCurrentItemID() == mirrorWeaponID)
             {
                 playerInventory.ConsumeCurrentItem();
-
                 hasMirror = true;
                 if (mirrorModel != null) mirrorModel.SetActive(true);
-
-                // 放上去的瞬間，強制把半透明預覽關掉
                 if (ghostMirrorModel != null) ghostMirrorModel.SetActive(false);
-
-                Debug.Log("<color=green>[基座]</color> 成功放下了攜帶式鏡子！");
-            }
-            else
-            {
-                Debug.Log("<color=orange>[基座]</color> 你必須拿著攜帶式鏡子才能放上去！");
+                if (CheckpointManager.Instance != null) CheckpointManager.Instance.RecordPedestalState(uniqueID, true);
             }
         }
     }

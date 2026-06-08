@@ -2,6 +2,13 @@ using UnityEngine;
 
 public class ObjectRotator : MonoBehaviour
 {
+    // ==========================================
+    // 【新增】：存檔系統設定
+    // ==========================================
+    [Header("存檔系統設定")]
+    [Tooltip("請輸入獨一無二的ID，例如 'Rotator_Mirror_01'")]
+    public string uniqueID;
+
     [Header("旋轉設定")]
     [Tooltip("每次按下按鍵要旋轉的角度")]
     public float rotationStep = 15f;
@@ -20,6 +27,16 @@ public class ObjectRotator : MonoBehaviour
         if (mainCamera == null)
         {
             Debug.LogError("<color=red>[錯誤]</color> 找不到玩家攝影機！請確定你的攝影機有設定 'MainCamera' 標籤。");
+        }
+
+        // 【新增】：遊戲一開始，去問總部自己上次被轉到了什麼角度？
+        if (CheckpointManager.Instance != null && !string.IsNullOrEmpty(uniqueID))
+        {
+            // 如果總部有這顆物件的旋轉紀錄，就把自己轉過去！
+            if (CheckpointManager.Instance.TryGetObjectRotation(uniqueID, out Quaternion savedRotation))
+            {
+                transform.localRotation = savedRotation;
+            }
         }
     }
 
@@ -47,20 +64,28 @@ public class ObjectRotator : MonoBehaviour
 
     private void HandleRotationInput()
     {
-        // 按下 Q 鍵向左轉 (改為以自身 Z 軸逆時針轉)
+        bool hasRotated = false;
+
+        // 按下 Q 鍵向左轉
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            // 【修改這裡】：把 -rotationStep 移到第三個參數 (Z軸)
             transform.Rotate(0, 0, -rotationStep, Space.Self);
             Debug.Log($"<color=cyan>[物件旋轉]</color> 玩家對準並沿 Z 軸向左轉了 {rotationStep} 度！");
+            hasRotated = true;
         }
 
-        // 按下 E 鍵向右轉 (改為以自身 Z 軸順時針轉)
+        // 按下 E 鍵向右轉
         if (Input.GetKeyDown(KeyCode.E))
         {
-            // 【修改這裡】：把 rotationStep 移到第三個參數 (Z軸)
             transform.Rotate(0, 0, rotationStep, Space.Self);
             Debug.Log($"<color=cyan>[物件旋轉]</color> 玩家對準並沿 Z 軸向右轉了 {rotationStep} 度！");
+            hasRotated = true;
+        }
+
+        // 【新增】：如果真的有旋轉，立刻跟總部回報最新的角度
+        if (hasRotated && CheckpointManager.Instance != null && !string.IsNullOrEmpty(uniqueID))
+        {
+            CheckpointManager.Instance.RecordObjectRotation(uniqueID, transform.localRotation);
         }
     }
 }

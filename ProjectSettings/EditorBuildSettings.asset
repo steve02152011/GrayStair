@@ -9,6 +9,15 @@ EditorBuildSettings:
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: 71b8eccc297fcc1469f49c2d0b92059d
+  - enabled: 1
+    path: Assets/Scenes/Start.unity
+    guid: e30a72ba8b5bc5642a1213e0bd97a4b1
+  - enabled: 1
+    path: Assets/Scenes/Formal.unity
+    guid: dfe172fb34a81a64f82f8c23d0536a57
+  - enabled: 0
     path: Assets/Scenes/Fonia_AI.unity
     guid: 8726a918f2a8f974d894ffbc28713513
   m_configObjects:
